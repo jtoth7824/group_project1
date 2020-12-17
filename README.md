@@ -12,10 +12,10 @@ https://designer.gravit.io/?token=1zKWwJ-XQp2MWJxHxJjlm8LMzhQ7gimn
 
 # Team members and responsibilities:
 
-John:  Javascript/jquery
-Walter: HTML/CSS/responsiveness
-Matias: HTML/CSS/powerpoint presentation
-Duc:  API research, Javascript
+<div>John:  Javascript/jquery</div>
+<div>Walter: HTML/CSS/responsiveness</div>
+<div>Matias: HTML/CSS/powerpoint presentation</div>
+<div>Duc:  API research, Javascript</div>
 
 
 # APIs
