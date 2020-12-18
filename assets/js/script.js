@@ -202,10 +202,6 @@ init();
 
 
 
-
-
-
-
 //Create ajax calls to retrieve movie info
 
 /*var movieURL = "https://...";
