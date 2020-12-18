@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./assets/css/" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,31 +24,26 @@
           ><i class="material-icons">book</i>Insert Project Name</a
         >
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="">About</a></li>
+          <!--<li><a href="">About</a></li>-->
           <li><a href="">Contact</a></li>
-          <li><a href="">JavaScript</a></li>
+          <!--<li><a href="">JavaScript</a></li>-->
         </ul>
       </div>
     </nav>
 
     <div class="container">
       <h1>Book/Movie Finder</h1>
+      <input type="text" name="Title" id="bookTitle" placeholder="Book Title" />
       <input
         type="text"
         name="Title"
-        id="search-btn"
-        placeholder="Book Title"
-      />
-      <input
-        type="text"
-        name="Title"
-        id="search-btn"
+        id="firstName"
         placeholder="Author First Name"
       />
       <input
         type="text"
         name="Title"
-        id="search-btn"
+        id="lastName"
         placeholder="Author Last Name"
       />
       <button class="btn waves-effect">
@@ -56,10 +51,82 @@
       </button>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <br />
+
+    <!--Results Dropdowns-->
+    <!--Book Results-->
+    <div class="container">
+      <!-- Dropdown Trigger -->
+      <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
+        ><i class="material-icons">arrow_drop_down_circle</i> Book Results</a
+      >
+
+      <!-- Dropdown Structure -->
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">one</a>testing1</li>
+        <li><a href="#!">two</a>testing2</li>
+        <li class="divider" tabindex="-1"></li>
+        <li><a href="#!">three</a></li>
+        <li>
+          <a href="#!"><i class="material-icons">view_module</i>four</a>
+        </li>
+        <li>
+          <a href="#!"><i class="material-icons">cloud</i>five</a>
+        </li>
+      </ul>
+    </div>
+
+    <br />
+
+    <div class="container">
+      <!--Movie Results-->
+      <!-- Dropdown Trigger -->
+      <a class="dropdown-trigger2 btn" href="#" data-target="dropdown2"
+        ><i class="material-icons">arrow_drop_down_circle</i>Movie Results</a
+      >
+
+      <!-- Dropdown Structure -->
+      <ul id="dropdown2" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider" tabindex="-1"></li>
+        <li><a href="#!">three</a></li>
+        <li>
+          <a href="#!"><i class="material-icons">view_module</i>four</a>
+        </li>
+        <li>
+          <a href="#!"><i class="material-icons">cloud</i>five</a>
+        </li>
+      </ul>
+    </div>
+
+    <br />
+
+    <div class="container">
+      <!--Event Results-->
+      <!-- Dropdown Trigger -->
+      <a class="dropdown-trigger3 btn" href="#" data-target="dropdown3"
+        ><i class="material-icons">arrow_drop_down_circle</i>Events Results</a
+      >
+
+      <!-- Dropdown Structure -->
+      <ul id="dropdown3" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider" tabindex="-1"></li>
+        <li><a href="#!">three</a></li>
+        <li>
+          <a href="#!"><i class="material-icons">view_module</i>four</a>
+        </li>
+        <li>
+          <a href="#!"><i class="material-icons">cloud</i>five</a>
+        </li>
+      </ul>
+    </div>
 
     <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
