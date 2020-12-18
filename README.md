@@ -17,6 +17,11 @@ Walter: HTML/CSS/responsiveness
 Matias: HTML/CSS/powerpoint presentation
 Duc: API research, Javascript
 
+<div>John:  Javascript/jquery</div>
+<div>Walter: HTML/CSS/responsiveness</div>
+<div>Matias: HTML/CSS/powerpoint presentation</div>
+<div>Duc:  API research, Javascript</div>
+
 # APIs
 
 Random House publishing, OMBDB api, openlibrary API, possibly some geolocation TBD
