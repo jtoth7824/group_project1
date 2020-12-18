@@ -202,8 +202,6 @@ init();
 
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -213,7 +211,6 @@ init();
 
 
 
->>>>>>> 9f3acdab8dd61b3bf4776623b9a171c047541784
 //Create ajax calls to retrieve movie info
 
 /*var movieURL = "https://...";
