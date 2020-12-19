@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Materialize - Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav>
       <div class="nav-wrapper teal">
-        <a href="#" class="brand-logo"
-          ><i class="material-icons">book</i>Insert Project Name</a
-        >
+        <a href="#" class="brand-logo flow-text">
+          <i class="material-icons">book</i>
+          Insert Project Name
+        </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <!--<li><a href="">About</a></li>-->
           <li><a href="">Contact</a></li>
@@ -29,10 +35,7 @@
 
     <div class="container">
       <h1>Book/Movie Finder</h1>
-      <input type="text" 
-      name="Title" 
-      id="bookTitle" 
-      placeholder="Book Title"/>
+      <input type="text" name="Title" id="bookTitle" placeholder="Book Title" />
       <input
         type="text"
         name="Title"
@@ -46,7 +49,7 @@
         placeholder="Author Last Name"
       />
       <button class="btn waves-effect">
-        <i class="material-icons">search-btn</i>Search
+        <i class="material-icons left">search-btn</i>Search
       </button>
     </div>
 
@@ -57,7 +60,8 @@
     <div class="container">
       <!-- Dropdown Trigger -->
       <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
-        ><i class="material-icons">arrow_drop_down_circle</i> Book Results</a
+        ><i class="material-icons left">arrow_drop_down_circle</i> Book
+        Results</a
       >
 
       <!-- Dropdown Structure -->
@@ -81,7 +85,8 @@
       <!--Movie Results-->
       <!-- Dropdown Trigger -->
       <a class="dropdown-trigger2 btn" href="#" data-target="dropdown2"
-        ><i class="material-icons">arrow_drop_down_circle</i>Movie Results</a
+        ><i class="material-icons left">arrow_drop_down_circle</i>Movie
+        Results</a
       >
 
       <!-- Dropdown Structure -->
@@ -105,7 +110,8 @@
       <!--Event Results-->
       <!-- Dropdown Trigger -->
       <a class="dropdown-trigger3 btn" href="#" data-target="dropdown3"
-        ><i class="material-icons">arrow_drop_down_circle</i>Events Results</a
+        ><i class="material-icons left">arrow_drop_down_circle</i>Events
+        Results</a
       >
 
       <!-- Dropdown Structure -->
@@ -122,6 +128,92 @@
         </li>
       </ul>
     </div>
+
+    <br />
+
+    <!-- GRID-->
+    <div class="container">
+      <!-- <div class="col s1"><div class="card-panel">1</div></div> -->
+
+      <div class="row">
+        <div class="col s6">
+          <div class="card-panel">
+            <h4>Title Info</h4>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  disabled
+                  value="I am not editable"
+                  id="disabled"
+                  type="text"
+                  class="validate"
+                />
+                <label for="disabled">Title of Book</label>
+              </div>
+              <div class="input-field col s12">
+                <input
+                  disabled
+                  value="I am not editable"
+                  id="disabled"
+                  type="text"
+                  class="validate"
+                />
+                <label for="disabled">Genre</label>
+              </div>
+              <div class="input-field col s12">
+                <input
+                  disabled
+                  value="I am not editable"
+                  id="disabled"
+                  type="text"
+                  class="validate"
+                />
+                <label for="disabled">Number of Pages</label>
+              </div>
+              <div class="input-field col s12">
+                <input
+                  disabled
+                  value="I am not editable"
+                  id="disabled"
+                  type="text"
+                  class="validate"
+                />
+                <label for="disabled">Age Range</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s6">
+          <div class="card-panel">
+            <h4>Author Info</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <div class="card-panel">
+            <h4>Movie Info</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <div class="card-panel">
+            <h4>Upcoming Events</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Time JS-->
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+    <script>
+      dayjs.extend(window.dayjs_plugin_utc);
+    </script>
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
