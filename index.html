@@ -48,8 +48,8 @@
         id="lastName"
         placeholder="Author Last Name"
       />
-      <button class="btn waves-effect">
-        <i class="material-icons left">search-btn</i>Search
+      <button class="btn waves-effect" id="searchBtn">
+        <i class="material-icons">search-btn</i>Search
       </button>
     </div>
 
@@ -66,16 +66,6 @@
 
       <!-- Dropdown Structure -->
       <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#!">one</a>testing1</li>
-        <li><a href="#!">two</a>testing2</li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="#!">three</a></li>
-        <li>
-          <a href="#!"><i class="material-icons">view_module</i>four</a>
-        </li>
-        <li>
-          <a href="#!"><i class="material-icons">cloud</i>five</a>
-        </li>
       </ul>
     </div>
 
@@ -218,6 +208,9 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+    <script>dayjs.extend(window.dayjs_plugin_utc)</script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

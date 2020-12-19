@@ -1,10 +1,60 @@
 var searchInfo = {
     author: {
-        firstName: "Dan",
-        lastName: "Brown"
+        firstName: "",
+        lastName: ""
     },
-    bookTitle: "Angels and Demons"
+    bookTitle: ""
 };
+
+var movieInfoArray = [];
+
+var tempMovieInfo = {
+    movieTitle: "",
+    moviePlot: "",
+    movieRating: "",
+    movieRuntime: "",
+    movieGenre: "",
+    movieReleased: "",
+    moviePosterLink: ""
+};
+
+var authorInfoArray = [];
+
+var tempAuthoInfo = {
+    authorFirst: "",
+    authorLast: "",
+    authorPhotoURL: "",
+    authorSpotlight: "",
+    authorID: ""
+};
+
+var bookInfoArray = [];
+
+var tempBookInfo = {
+    bookOnSale: "",
+    bookFormat: "",
+    bookNumPages: 0,
+    bookTheme: "",
+    bookPriceUSA: 0,
+    bookCoverArt: "",
+    bookSubjectDesc: "",
+    bookISBN: ""
+};
+
+
+var authorEventInfoArray = [];
+
+var tempAuthorEventInfo = {
+    eventDescription: "",
+    eventDate: "",
+    eventLocation: "",
+    eventAddress: "",
+    eventCity: "",
+    eventState: "",
+    eventZip: ""
+    //    eventTelephone: ""
+};
+
 var title = "anne of green gables";
 var author = "Dan Brown";
 var isbn = "9780593123843";
@@ -12,13 +62,10 @@ var authorid = "124249"; //Daniel Lieberman
 var authoreventisbn = "9781524746988";
 // var movideapiKey = "bea0d386";
 // var bookapiKey = "tfugk99hpk2nt8sm3ve3peqy";
-
+/* grab current day using day js to use to limit author events returned */
+var currentDate = dayjs().format('M/DD/YYYY');
 // The following url is how to retrieve the book cover.   Need an ISBN number
 // <img src="http://covers.openlibrary.org/b/isbn/9780385533225-S.jpg" />
-
-$("#searchBtn").on("click", function () {
-
-});
 
 /* function to save author name and book title to local storage */
 function saveSearchInfo() {
@@ -157,26 +204,9 @@ function init() {
 
 init();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$('.dropdown-trigger').dropdown();
+$('.dropdown-trigger2').dropdown();
+$('.dropdown-trigger3').dropdown();
 
 
 
@@ -285,3 +315,143 @@ $.ajax({
 
   })
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#searchBtn").on("click", function () {
+    /* save user entered info to searchInfo object */
+    searchInfo.bookTitle = $("#bookTitle").val().trim();
+    searchInfo.author.firstName = $("#firstName").val().trim();
+    searchInfo.author.lastName = $("#lastName").val().trim();
+
+    /* save user entered search criteria to local storage */
+    saveSearchInfo();
+    /*clear search terms in input boxes */
+    $("#bookTitle").val("");
+    $("#firstName").val("");
+    $("#lastName").val("");
+
+    var listEl = $("<li>");
+    var listDivEl = $("<li>");
+    var aEl = $("<a>");
+
+    $(aEl).attr("href", "#!");
+    $(aEl).text(searchInfo.bookTitle);
+    $(listEl).append(aEl);
+    $(listDivEl).addClass("divider");
+    $(listDivEl).attr("tabindex", "-1");
+    console.log(listEl);
+    $("#dropdown1").append(listEl);
+    $("#dropdown1").append(listDivEl);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
