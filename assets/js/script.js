@@ -67,20 +67,6 @@ var currentDate = dayjs().format('M/DD/YYYY');
 // The following url is how to retrieve the book cover.   Need an ISBN number
 // <img src="http://covers.openlibrary.org/b/isbn/9780385533225-S.jpg" />
 
-$("#searchBtn").on("click", function () {
-    /* save user entered info to searchInfo object */
-    searchInfo.bookTitle = $("#bookTitle").val().trim();
-    searchInfo.author.firstName = $("#firstName").val().trim();
-    searchInfo.author.lastName = $("#lastName").val().trim();
-
-    /* save user entered search criteria to local storage */
-    saveSearchInfo();
-    /*clear search terms in input boxes */
-    $("#bookTitle").val("");
-    $("#firstName").val("");
-    $("#lastName").val("");
-});
-
 /* function to save author name and book title to local storage */
 function saveSearchInfo() {
 
@@ -329,3 +315,143 @@ $.ajax({
 
   })
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#searchBtn").on("click", function () {
+    /* save user entered info to searchInfo object */
+    searchInfo.bookTitle = $("#bookTitle").val().trim();
+    searchInfo.author.firstName = $("#firstName").val().trim();
+    searchInfo.author.lastName = $("#lastName").val().trim();
+
+    /* save user entered search criteria to local storage */
+    saveSearchInfo();
+    /*clear search terms in input boxes */
+    $("#bookTitle").val("");
+    $("#firstName").val("");
+    $("#lastName").val("");
+
+    var listEl = $("<li>");
+    var listDivEl = $("<li>");
+    var aEl = $("<a>");
+
+    $(aEl).attr("href", "#!");
+    $(aEl).text(searchInfo.bookTitle);
+    $(listEl).append(aEl);
+    $(listDivEl).addClass("divider");
+    $(listDivEl).attr("tabindex", "-1");
+    console.log(listEl);
+    $("#dropdown1").append(listEl);
+    $("#dropdown1").append(listDivEl);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
