@@ -1,9 +1,9 @@
 var searchInfo = {
     author: {
-        firstName: "Dan",
-        lastName: "Brown"
+        firstName: "",
+        lastName: ""
     },
-    bookTitle: "Angels and Demons"
+    bookTitle: ""
 };
 var title = "anne of green gables";
 var author = "Dan Brown";
@@ -17,7 +17,17 @@ var authoreventisbn = "9781524746988";
 // <img src="http://covers.openlibrary.org/b/isbn/9780385533225-S.jpg" />
 
 $("#searchBtn").on("click", function () {
+    /* save user entered info to searchInfo object */
+    searchInfo.bookTitle = $("#bookTitle").val().trim();
+    searchInfo.author.firstName = $("#firstName").val().trim();
+    searchInfo.author.lastName = $("#lastName").val().trim();
 
+    /* save user entered search criteria to local storage */
+    saveSearchInfo();
+    /*clear search terms in input boxes */
+    $("#bookTitle").val("");
+    $("#firstName").val("");
+    $("#lastName").val("");
 });
 
 /* function to save author name and book title to local storage */
@@ -156,25 +166,6 @@ function init() {
 }
 
 init();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
