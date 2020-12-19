@@ -5,6 +5,56 @@ var searchInfo = {
     },
     bookTitle: ""
 };
+
+var movieInfoArray = [];
+
+var tempMovieInfo = {
+    movieTitle: "",
+    moviePlot: "",
+    movieRating: "",
+    movieRuntime: "",
+    movieGenre: "",
+    movieReleased: "",
+    moviePosterLink: ""
+};
+
+var authorInfoArray = [];
+
+var tempAuthoInfo = {
+    authorFirst: "",
+    authorLast: "",
+    authorPhotoURL: "",
+    authorSpotlight: "",
+    authorID: ""
+};
+
+var bookInfoArray = [];
+
+var tempBookInfo = {
+    bookOnSale: "",
+    bookFormat: "",
+    bookNumPages: 0,
+    bookTheme: "",
+    bookPriceUSA: 0,
+    bookCoverArt: "",
+    bookSubjectDesc: "",
+    bookISBN: ""
+};
+
+
+var authorEventInfoArray = [];
+
+var tempAuthorEventInfo = {
+    eventDescription: "",
+    eventDate: "",
+    eventLocation: "",
+    eventAddress: "",
+    eventCity: "",
+    eventState: "",
+    eventZip: ""
+    //    eventTelephone: ""
+};
+
 var title = "anne of green gables";
 var author = "Dan Brown";
 var isbn = "9780593123843";
@@ -12,7 +62,8 @@ var authorid = "124249"; //Daniel Lieberman
 var authoreventisbn = "9781524746988";
 // var movideapiKey = "bea0d386";
 // var bookapiKey = "tfugk99hpk2nt8sm3ve3peqy";
-
+/* grab current day using day js to use to limit author events returned */
+var currentDate = dayjs().format('M/DD/YYYY');
 // The following url is how to retrieve the book cover.   Need an ISBN number
 // <img src="http://covers.openlibrary.org/b/isbn/9780385533225-S.jpg" />
 
@@ -167,7 +218,9 @@ function init() {
 
 init();
 
-
+$('.dropdown-trigger').dropdown();
+$('.dropdown-trigger2').dropdown();
+$('.dropdown-trigger3').dropdown();
 
 
 
