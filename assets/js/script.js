@@ -3,9 +3,12 @@ var searchInfo = {
         firstName: "",
         lastName: ""
     },
-    bookTitle: ""
+    bookTitle: "",
+    bookisbn: "",
+    eventId: ""
 };
-
+var startup = false;
+var startupEvent = false;
 var movieInfoArray = [];
 
 var tempMovieInfo = {
@@ -20,7 +23,7 @@ var tempMovieInfo = {
 
 var authorInfoArray = [];
 
-var tempAuthoInfo = {
+var tempAuthorInfo = {
     authorFirst: "",
     authorLast: "",
     authorPhotoURL: "",
@@ -102,6 +105,7 @@ function buildAuthorQueryURL() {
     };
 
     queryParams.q = convertSearchTerm(author);
+    queryParams.preferLanguage = "EN";
     console.log(queryURL + $.param(queryParams));
 
     return queryURL + $.param(queryParams);
@@ -115,7 +119,7 @@ function buildBookTitleQueryURL(isbn) {
         "api_key": "tfugk99hpk2nt8sm3ve3peqy"
     };
 
-    console.log(queryURL + $.param(queryParams));
+    queryParams.preferLanguage = "EN";
 
     return queryURL + $.param(queryParams);
 }
@@ -130,11 +134,17 @@ function buildEventQueryURL() {
     };
 
     queryParams.isbn = authoreventisbn;
-    queryParams.eventDateFrom = "12/15/2020";
+    queryParams.eventDateFrom = currentDate;
     queryParams.sort = "eventdate";
     console.log(queryURL + $.param(queryParams));
 
     return queryURL + $.param(queryParams);
+}
+
+function retrieveCoverArt(isbn) {
+    var srcCoverArt = "http://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
+
+    return srcCoverArt;
 }
 
 function displayMovieInfo() {
@@ -155,37 +165,12 @@ function displayMovieInfo() {
 
             /* create elements to display movie info to page */
 
-            url1 = buildAuthorQueryURL();
-            $.ajax({
-                type: "GET",
-                url: url1,
-                success: function (response) {
-                    console.log(response);
 
-                    url2 = buildBookTitleQueryURL(isbn);
-                    $.ajax({
-                        type: "GET",
-                        url: url2,
-                        success: function (response) {
-                            console.log(response);
-
-                            url3 = buildEventQueryURL(isbn);
-                            $.ajax({
-                                type: "GET",
-                                url: url3,
-                                success: function (response) {
-                                    console.log(response);
-                                }
-                            })
-
-                        }
-                    })
-
-                }
-            })
         }
     })
 }
+
+
 
 function init() {
     // Get stored events from localStorage
@@ -196,7 +181,12 @@ function init() {
     if (savedInfo === null) {
         localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
     }
-    displayMovieInfo();
+    else {
+        startup = true;
+        startup = true;
+        searchInfo = savedInfo;
+        getAuthorInfo();
+    }
 
     /* call to display the search params area */
 //    displaySearchParams();
@@ -400,10 +390,10 @@ $.ajax({
 
 $("#searchBtn").on("click", function () {
     /* save user entered info to searchInfo object */
-    searchInfo.bookTitle = $("#bookTitle").val().trim();
+    //searchInfo.bookTitle = $("#bookTitle").val().trim();
     searchInfo.author.firstName = $("#firstName").val().trim();
     searchInfo.author.lastName = $("#lastName").val().trim();
-
+console.log(searchInfo);
     /* save user entered search criteria to local storage */
     saveSearchInfo();
     /*clear search terms in input boxes */
@@ -425,17 +415,107 @@ $("#searchBtn").on("click", function () {
     $("#dropdown1").append(listDivEl);
 });
 
+function buildAuthorContentQueryURL(forcedauthorid) {
+    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
+    queryURL = queryURL + forcedauthorid + "?";
+    var queryParams = {
+        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
+    }
+    queryParams.preferLanguage = "EN";
+    console.log("authorcontent query");
+    return queryURL + $.param(queryParams);
+}
 
+function buildAuthorTitlesQueryURL(forcedauthorid) {
+    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
+    queryURL = queryURL + forcedauthorid + "/titles?";
 
+    var queryParams = {
+        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
 
+    }
+    queryParams.preferLanguage = "EN";
+    queryParams.rows = 0;
+    //   queryParams.format = "HC";
+    queryParams.language = "E";
+    return queryURL + $.param(queryParams);
+}
 
+function buildPickedEventQueryURL(whichEvent) {
+    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/events/";
 
+    queryURL = queryURL + whichEvent + "?";
 
+    var queryParams = {
+        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
+    }
 
+    queryParams.preferLanguage = "EN";
+    return queryURL + $.param(queryParams);
+}
 
+function getAuthorInfo() {
+    var url1;
+    var author = searchInfo.author.firstName + " " + searchInfo.author.lastName;
+    console.log("author = " + author);
+    url1 = buildAuthorQueryURL(author);
+    $.ajax({
+        type: "GET",
+        url: url1,
+        success: function (response) {
+            tempAuthorInfo.authorPhotoURL = response.data.results[0].authorPhotoUrl;
+            tempAuthorInfo.authorSpotlight = response.data.results[0].authorBio;
+            tempAuthorInfo.authorID = response.data.results[0].authorId;
+            authorInfoArray.push(tempAuthorInfo);
+            $("#authorBio").html(tempAuthorInfo.authorSpotlight);
+            $("#authorPhoto").attr("src", tempAuthorInfo.authorPhotoURL);
 
+            var url2;
+            url2 = buildAuthorTitlesQueryURL(tempAuthorInfo.authorID);
+            $.ajax({
+                type: "GET",
+                url: url2,
+                success: function (response) {
+                    /* build list of book titles for dropdown list */
+                    for (var i = 0; i < response.data.titles.length; i++) {
+                        var listEl = $("<li>");
+                        var listDivEl = $("<li>");
+                        var aEl = $("<a>");
 
+                        $(aEl).attr("href", "#!");
+                        /* save isbn number as attribute so future api call can happen based upon which book was clicked */
+                        $(aEl).attr("isbn", response.data.titles[i].isbn);
+                        $(aEl).text(response.data.titles[i].title);
+                        $(aEl).addClass("book-list-item");
+                        $(listEl).append(aEl);
+                        $(listDivEl).addClass("divider");
+                        $(listDivEl).attr("tabindex", "-1");
+                        console.log(listEl);
+                        $("#dropdown1").append(listEl);
+                        $("#dropdown1").append(listDivEl);
+                    }
+                }
+            });
+        }
+    });
+}
 
+function clearAuthorInfo() {
+    $("#authorSpotlight").text("");
+    $("#authorSpotlight").removeAttr("src");
+//    $("#authorPhotoURL").attr("src", "");
+}
+
+function clearEventInfo() {
+    $("#eventLocation").val("");
+    $("#eventDesc").val("");
+    $("#eventDate").val("");
+    $("#eventTime").val("");
+    $("#eventAddress").val("");
+    $("#eventCity").val("");
+    $("#eventState").val("");
+    $("#eventZip").val(""); 
+}
 
 
 
