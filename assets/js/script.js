@@ -9,65 +9,13 @@ var searchInfo = {
 };
 var startup = false;
 var startupEvent = false;
-var movieInfoArray = [];
+var authorID;
+var bookTitle;
 
-var tempMovieInfo = {
-    movieTitle: "",
-    moviePlot: "",
-    movieRating: "",
-    movieRuntime: "",
-    movieGenre: "",
-    movieReleased: "",
-    moviePosterLink: ""
-};
-
-var authorInfoArray = [];
-
-var tempAuthorInfo = {
-    authorFirst: "",
-    authorLast: "",
-    authorPhotoURL: "",
-    authorSpotlight: "",
-    authorID: ""
-};
-
-var bookInfoArray = [];
-
-var tempBookInfo = {
-    bookOnSale: "",
-    bookFormat: "",
-    bookNumPages: 0,
-    bookTheme: "",
-    bookPriceUSA: 0,
-    bookCoverArt: "",
-    bookSubjectDesc: "",
-    bookISBN: ""
-};
-
-var authorEventInfoArray = [];
-
-var tempAuthorEventInfo = {
-    eventDescription: "",
-    eventDate: "",
-    eventLocation: "",
-    eventAddress: "",
-    eventCity: "",
-    eventState: "",
-    eventZip: ""
-    //    eventTelephone: ""
-};
-
-var title = "anne of green gables";
-var author = "Dan Brown";
-var isbn = "9780593123843";
-var authorid = "124249"; //Daniel Lieberman
-var authoreventisbn = "9781524746988";
 // var movideapiKey = "bea0d386";
 // var bookapiKey = "tfugk99hpk2nt8sm3ve3peqy";
 /* grab current day using day js to use to limit author events returned */
 var currentDate = dayjs().format('M/DD/YYYY');
-// The following url is how to retrieve the book cover.   Need an ISBN number
-// <img src="http://covers.openlibrary.org/b/isbn/9780385533225-S.jpg" />
 
 /* function to save author name and book title to local storage */
 function saveSearchInfo() {
@@ -77,6 +25,7 @@ function saveSearchInfo() {
 }
 
 function convertSearchTerm(searchTerm) {
+    console.log(searchTerm);
     /* split book title into individual word array based upon space character as separator */
     var convert = searchTerm.split(" ");
     /* rejoin each array element with + between each word in string */
@@ -84,10 +33,10 @@ function convertSearchTerm(searchTerm) {
     return convert;
 }
 
-function buildMovieQueryURL() {
+function buildMovieQueryURL(bookTitle) {
     var queryURL = "http://www.omdbapi.com/?";
 
-    var movieTitle = convertSearchTerm(title);
+    var movieTitle = convertSearchTerm(bookTitle);
     var queryParams = {
         "apikey": "bea0d386"
     };
@@ -96,7 +45,7 @@ function buildMovieQueryURL() {
     return queryURL + $.param(queryParams);
 }
 
-function buildAuthorQueryURL() {
+function buildAuthorQueryURL(author) {
     var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/search/views/search-display?";
 
     var queryParams = {
@@ -123,7 +72,7 @@ function buildBookTitleQueryURL(isbn) {
     return queryURL + $.param(queryParams);
 }
 
-function buildEventQueryURL() {
+function buildEventQueryURL(authorid, authoreventisbn) {
     var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
 
     queryURL = queryURL + authorid + "/events?";
@@ -150,7 +99,7 @@ function displayMovieInfo() {
     var url;
 
     /* build url for movie api call utilzing the book title chosen */
-    url = buildMovieQueryURL();
+    url = buildMovieQueryURL(bookTitle);
     console.log(url);
     /* make ajax call to retrieve movie object */
     $.ajax({
@@ -159,26 +108,16 @@ function displayMovieInfo() {
         success: function (response) {
             console.log(response);
             clearMovieInfo();
-            tempMovieInfo.movieTitle = response.Title;
-            tempMovieInfo.moviePlot = response.Plot;
-            tempMovieInfo.movieRating = response.Rated;
-            tempMovieInfo.movieRuntime = response.Runtime;
-            tempMovieInfo.movieGenre = response.Genre;
-            tempMovieInfo.movieReleased = response.Released;
-            tempMovieInfo.moviePosterLink = response.Poster;
-            movieInfoArray.push(tempMovieInfo);
-
             console.log("movie array");
-            console.log(movieInfoArray[0]);
 
-            $("#movieTitle").val(tempMovieInfo.movieTitle);
-            $("#moviePlot").text(tempMovieInfo.moviePlot);
-            $("#movieRated").val(tempMovieInfo.movieRating);
-            $("#movieRuntime").val(tempMovieInfo.movieRuntime);
-            $("#movieGenre").val(tempMovieInfo.movieGenre);
-            $("#movieReleased").val(tempMovieInfo.movieReleased);
+            $("#movieTitle").val(response.Title);
+            $("#moviePlot").text(response.Plot);
+            $("#movieRated").val(response.Rated);
+            $("#movieRuntime").val(response.Runtime);
+            $("#movieGenre").val(response.Genre);
+            $("#movieReleased").val(response.Released);
             M.updateTextFields();
-            $("#moviePoster").attr("src", tempMovieInfo.moviePosterLink);
+            $("#moviePoster").attr("src", response.Poster);
         }
     })
 }
@@ -196,12 +135,14 @@ function init() {
         startup = true;
         startup = true;
         searchInfo = savedInfo;
+        clearAuthorInfo();
+        clearBookInfo();
+        clearEventInfo();
+        clearMovieInfo();
         getAuthorInfo();
+        getBookInfo();
         getEventInfo();
     }
-
-    /* call to display the search params area */
-//    displaySearchParams();
 }
 
 init();
@@ -414,6 +355,10 @@ console.log(searchInfo);
     $("#lastName").val("");
     $("#dropdown1").empty();
     $("authorEvents").empty();
+    clearBookInfo();
+    clearAuthorInfo();
+    clearMovieInfo();
+    clearEventInfo();
     getAuthorInfo();
 
 });
@@ -460,21 +405,16 @@ function buildPickedEventQueryURL(whichEvent) {
 function getAuthorInfo() {
     var url1;
     var author = searchInfo.author.firstName + " " + searchInfo.author.lastName;
-    console.log("author = " + author);
     url1 = buildAuthorQueryURL(author);
     $.ajax({
         type: "GET",
         url: url1,
         success: function (response) {
-            tempAuthorInfo.authorPhotoURL = response.data.results[0].authorPhotoUrl;
-            tempAuthorInfo.authorSpotlight = response.data.results[0].authorBio;
-            tempAuthorInfo.authorID = response.data.results[0].authorId;
-            authorInfoArray.push(tempAuthorInfo);
-            $("#authorBio").html(tempAuthorInfo.authorSpotlight);
-            $("#authorPhoto").attr("src", tempAuthorInfo.authorPhotoURL);
-
+            $("#authorBio").html(response.data.results[0].authorBio);
+            $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
+            authorID = response.data.results[0].authorId;
             var url2;
-            url2 = buildAuthorTitlesQueryURL(tempAuthorInfo.authorID);
+            url2 = buildAuthorTitlesQueryURL(response.data.results[0].authorId);
             $.ajax({
                 type: "GET",
                 url: url2,
@@ -575,29 +515,13 @@ function getEventInfo() {
         url: url,
         success: function (response) {
 
-//            tempAuthorEventInfo.eventLocation = response.data.events[0].location;
-//            tempAuthorEventInfo.eventDescription = response.data.events[0].description;
-//            tempAuthorEventInfo.eventDate = response.data.events[0].eventDate;
-//            tempAuthorEventInfo.eventAddress = response.data.events[0].address1;
-//            tempAuthorEventInfo.eventCity = response.data.events[0].city;
-//            tempAuthorEventInfo.eventState = response.data.events[0].state;
-//            tempAuthorEventInfo.eventZip = response.data.events[0].zip;
-//            tempAuthorEventInfo.eventTime = response.data.events[0].eventTime;
-//            $("#eventLocation").val(tempAuthorEventInfo.eventLocation);
             $("#eventLocation").val(response.data.events[0].location)
-//            $("#eventDesc").val(tempAuthorEventInfo.eventDescription);
             $("#eventDesc").val(response.data.events[0].description);
-//            $("#eventDate").val(tempAuthorEventInfo.eventDate);
             $("#eventDate").val(response.data.events[0].eventDate);
-//            $("#eventAddress").val(tempAuthorEventInfo.eventAddress);
             $("#eventAddress").val(response.data.events[0].address1);
-//            $("#eventCity").val(tempAuthorEventInfo.eventCity);
             $("#eventCity").val(response.data.events[0].city);
-//            $("#eventState").val(tempAuthorEventInfo.eventState);
             $("#eventState").val(response.data.events[0].state);
-//            $("#eventZip").val(tempAuthorEventInfo.eventZip);
             $("#eventZip").val(response.data.events[0].zip);
-//            $("#eventTime").val(tempAuthorEventInfo.eventTime);
             $("#eventTime").val(response.data.events[0].eventTime);
             M.updateTextFields();
         }
@@ -628,27 +552,19 @@ function getBookInfo() {
         url: url3,
         success: function (response) {
             console.log(response);
+            bookTitle = response.data.titles[0].title;
 
-            tempBookInfo.bookOnSale = response.data.titles[0].onsale;
-            tempBookInfo.bookFormat = response.data.titles[0].format.description;
-            tempBookInfo.bookNumPages = response.data.titles[0].pages;
-            tempBookInfo.bookPriceUSA = response.data.titles[0].price[1].amount;
-            tempBookInfo.bookISBN = String(response.data.titles[0].isbn);
-            tempBookInfo.bookCoverArt = retrieveCoverArt(tempBookInfo.bookISBN);
-            tempBookInfo.bookAgeRange = response.data.titles[0].age.description;
-            tempBookInfo.bookTitle = response.data.titles[0].title;
-
-            $("#title").val(tempBookInfo.bookTitle);
-            $("#numPages").val(tempBookInfo.bookNumPages);
-            $("#saleDate").val(tempBookInfo.bookOnSale);
-            $("#format").val(tempBookInfo.bookFormat);
-            $("#price").val("$" + tempBookInfo.bookPriceUSA);
-            $("#isbn").val(tempBookInfo.bookISBN);
+            $("#title").val(response.data.titles[0].title);
+            $("#numPages").val(response.data.titles[0].pages);
+            $("#saleDate").val(response.data.titles[0].onsale);
+            $("#format").val(response.data.titles[0].format.description);
+            $("#price").val("$" + response.data.titles[0].price[1].amount);
+            $("#isbn").val(String(response.data.titles[0].isbn));
             M.updateTextFields();
-            $("#bookCover").attr("src", tempBookInfo.bookCoverArt);
+            $("#bookCover").attr("src", retrieveCoverArt(response.data.titles[0].isbn));
             displayMovieInfo();
             
-            url4 = buildEventQueryURL(tempAuthorInfo.authorID, response.data.titles[0].isbn);
+            url4 = buildEventQueryURL(authorID, response.data.titles[0].isbn);
             /* api call to retrieve author events to populate dropdown list */
             $.ajax({
                 type: "GET",
