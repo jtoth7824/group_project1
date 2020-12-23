@@ -1,0 +1,37 @@
+@media screen and (max-width: 760px){
+    
+    .container{
+        width:200px;
+        font-size:small;
+
+    }
+    h1, .bookTitle, .firstName, .lastName{
+        font-size: large;
+        width:150px;
+    }
+   
+    .container .row {
+        width: 100%;
+    
+    }
+    .container .row .col{
+        min-width: 150px;
+        font-size: small;
+
+    }
+    h4, .input-field {
+        
+        font-size: small;
+    }
+
+    #disabled{
+        font-size: small;
+        width:80%;
+    
+}
+
+.card-panel{
+    font-size: small;
+    width: 200px;
+}
+}
