@@ -44,7 +44,6 @@ var tempBookInfo = {
     bookISBN: ""
 };
 
-
 var authorEventInfoArray = [];
 
 var tempAuthorEventInfo = {
@@ -159,18 +158,30 @@ function displayMovieInfo() {
         url: url,
         success: function (response) {
             console.log(response);
-            /* clear movie info */
+            clearMovieInfo();
+            tempMovieInfo.movieTitle = response.Title;
+            tempMovieInfo.moviePlot = response.Plot;
+            tempMovieInfo.movieRating = response.Rated;
+            tempMovieInfo.movieRuntime = response.Runtime;
+            tempMovieInfo.movieGenre = response.Genre;
+            tempMovieInfo.movieReleased = response.Released;
+            tempMovieInfo.moviePosterLink = response.Poster;
+            movieInfoArray.push(tempMovieInfo);
 
-            /* clear goes above here */
+            console.log("movie array");
+            console.log(movieInfoArray[0]);
 
-            /* create elements to display movie info to page */
-
-
+            $("#movieTitle").val(tempMovieInfo.movieTitle);
+            $("#moviePlot").text(tempMovieInfo.moviePlot);
+            $("#movieRated").val(tempMovieInfo.movieRating);
+            $("#movieRuntime").val(tempMovieInfo.movieRuntime);
+            $("#movieGenre").val(tempMovieInfo.movieGenre);
+            $("#movieReleased").val(tempMovieInfo.movieReleased);
+            M.updateTextFields();
+            $("#moviePoster").attr("src", tempMovieInfo.moviePosterLink);
         }
     })
 }
-
-
 
 function init() {
     // Get stored events from localStorage
@@ -186,6 +197,7 @@ function init() {
         startup = true;
         searchInfo = savedInfo;
         getAuthorInfo();
+        getEventInfo();
     }
 
     /* call to display the search params area */
@@ -400,19 +412,10 @@ console.log(searchInfo);
     $("#bookTitle").val("");
     $("#firstName").val("");
     $("#lastName").val("");
+    $("#dropdown1").empty();
+    $("authorEvents").empty();
+    getAuthorInfo();
 
-    var listEl = $("<li>");
-    var listDivEl = $("<li>");
-    var aEl = $("<a>");
-
-    $(aEl).attr("href", "#!");
-    $(aEl).text(searchInfo.bookTitle);
-    $(listEl).append(aEl);
-    $(listDivEl).addClass("divider");
-    $(listDivEl).attr("tabindex", "-1");
-    console.log(listEl);
-    $("#dropdown1").append(listEl);
-    $("#dropdown1").append(listDivEl);
 });
 
 function buildAuthorContentQueryURL(forcedauthorid) {
@@ -500,10 +503,32 @@ function getAuthorInfo() {
     });
 }
 
+function clearBookInfo() {
+    $("#title").val("");
+    $("#saleDate").val("");
+    $("#format").val("");
+    $("#numPages").val("");
+    $("#price").val("");
+    $("#isbn").val("");
+    $("#bookCover").removeAttr("src");
+//    $("#bookCover").attr("src", "");
+}
+
 function clearAuthorInfo() {
     $("#authorSpotlight").text("");
     $("#authorSpotlight").removeAttr("src");
 //    $("#authorPhotoURL").attr("src", "");
+}
+
+function clearMovieInfo() {
+    $("#movieTitle").val("");
+    $("#moviePlot").text("");
+    $("#movieRated").val("");
+    $("#movieRuntime").val("");
+    $("#movieGenre").val("");
+    $("#movieReleased").val("");
+    $("moviePoster").removeAttr("src");
+    $("#moviePoster").attr("src", "");
 }
 
 function clearEventInfo() {
@@ -517,8 +542,139 @@ function clearEventInfo() {
     $("#eventZip").val(""); 
 }
 
+/* listener event for book dropdown list */
+$(document).on("click", ".book-list-item", getBookInfo);
+/* listener event for author event dropdown list */
+$(document).on("click", ".event-list-item", getEventInfo);
 
+/* populate author event info based upon which event user selected */
+function getEventInfo() {
 
+    if(startupEvent) {
+        whichEvent = searchInfo.eventId;
+        startupEvent = false;
+        console.log("eventId:  " + searchInfo.eventId);
+        console.log("whichEvent:  " + whichEvent);
+    }
+    else {
+        var whichEvent = $(this).attr("eventId");
+        console.log("inside else");
+        console.log(whichEvent);
+        searchInfo.eventId = $(this).attr("eventId");
+        saveSearchInfo();
+    }
+
+//    var whichEvent = $(this).attr("eventId");
+
+    var url;
+    url = buildPickedEventQueryURL(whichEvent);
+    console.log(url);
+    /* call to retrieve single author event based upon eventId selected*/
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function (response) {
+
+//            tempAuthorEventInfo.eventLocation = response.data.events[0].location;
+//            tempAuthorEventInfo.eventDescription = response.data.events[0].description;
+//            tempAuthorEventInfo.eventDate = response.data.events[0].eventDate;
+//            tempAuthorEventInfo.eventAddress = response.data.events[0].address1;
+//            tempAuthorEventInfo.eventCity = response.data.events[0].city;
+//            tempAuthorEventInfo.eventState = response.data.events[0].state;
+//            tempAuthorEventInfo.eventZip = response.data.events[0].zip;
+//            tempAuthorEventInfo.eventTime = response.data.events[0].eventTime;
+//            $("#eventLocation").val(tempAuthorEventInfo.eventLocation);
+            $("#eventLocation").val(response.data.events[0].location)
+//            $("#eventDesc").val(tempAuthorEventInfo.eventDescription);
+            $("#eventDesc").val(response.data.events[0].description);
+//            $("#eventDate").val(tempAuthorEventInfo.eventDate);
+            $("#eventDate").val(response.data.events[0].eventDate);
+//            $("#eventAddress").val(tempAuthorEventInfo.eventAddress);
+            $("#eventAddress").val(response.data.events[0].address1);
+//            $("#eventCity").val(tempAuthorEventInfo.eventCity);
+            $("#eventCity").val(response.data.events[0].city);
+//            $("#eventState").val(tempAuthorEventInfo.eventState);
+            $("#eventState").val(response.data.events[0].state);
+//            $("#eventZip").val(tempAuthorEventInfo.eventZip);
+            $("#eventZip").val(response.data.events[0].zip);
+//            $("#eventTime").val(tempAuthorEventInfo.eventTime);
+            $("#eventTime").val(response.data.events[0].eventTime);
+            M.updateTextFields();
+        }
+    });
+}
+
+function getBookInfo() {
+    var url3;
+    if(startup) {
+        whichBook = searchInfo.bookisbn;
+        startup = false;
+        console.log("bookisbn:  " + searchInfo.bookisbn);
+        console.log("whichBook:  " + whichBook);
+    }
+    else {
+        var whichBook = $(this).attr("isbn");
+        console.log("inside else");
+        console.log(whichBook);
+        searchInfo.bookisbn = $(this).attr("isbn");
+        saveSearchInfo();
+    }
+
+//    var whichBook = $(this).attr("isbn");
+
+    url3 = buildBookTitleQueryURL(whichBook);
+    $.ajax({
+        type: "GET",
+        url: url3,
+        success: function (response) {
+            console.log(response);
+
+            tempBookInfo.bookOnSale = response.data.titles[0].onsale;
+            tempBookInfo.bookFormat = response.data.titles[0].format.description;
+            tempBookInfo.bookNumPages = response.data.titles[0].pages;
+            tempBookInfo.bookPriceUSA = response.data.titles[0].price[1].amount;
+            tempBookInfo.bookISBN = String(response.data.titles[0].isbn);
+            tempBookInfo.bookCoverArt = retrieveCoverArt(tempBookInfo.bookISBN);
+            tempBookInfo.bookAgeRange = response.data.titles[0].age.description;
+            tempBookInfo.bookTitle = response.data.titles[0].title;
+
+            $("#title").val(tempBookInfo.bookTitle);
+            $("#numPages").val(tempBookInfo.bookNumPages);
+            $("#saleDate").val(tempBookInfo.bookOnSale);
+            $("#format").val(tempBookInfo.bookFormat);
+            $("#price").val("$" + tempBookInfo.bookPriceUSA);
+            $("#isbn").val(tempBookInfo.bookISBN);
+            M.updateTextFields();
+            $("#bookCover").attr("src", tempBookInfo.bookCoverArt);
+            displayMovieInfo();
+            
+            url4 = buildEventQueryURL(tempAuthorInfo.authorID, response.data.titles[0].isbn);
+            /* api call to retrieve author events to populate dropdown list */
+            $.ajax({
+                type: "GET",
+                url: url4,
+                success: function (response) {
+                    /* add each event to list */
+                    for (var i = 0; i < response.data.events.length; i++) {
+                        var listEl = $("<li>");
+                        var listDivEl = $("<li>");
+                        var aEl = $("<a>");
+
+                        $(aEl).attr("href", "#!");
+                        $(aEl).attr("eventId", response.data.events[i].eventId);
+                        $(aEl).text(response.data.events[i].location);
+                        $(aEl).addClass("event-list-item");
+                        $(listEl).append(aEl);
+                        $(listDivEl).addClass("divider");
+                        $(listDivEl).attr("tabindex", "-1");
+                        $("#authorEvents").append(listEl);
+                        $("#authorEvents").append(listDivEl);
+                    }
+                }
+            });
+        }
+    });
+}
 
 
 
