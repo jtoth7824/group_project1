@@ -1,13 +1,27 @@
-@media screen and (max-width: 760px){
-    
+@media screen and (max-width: 860px){
+  
+  
+    .nav-wrapper a{
+   font-size: medium;
+   margin: 0px;    
+    }
     .container{
-        width:200px;
+       width: 180px;
         font-size:small;
 
     }
+    .row .s3{ min-width:180px;
+        font-size: small;
+
+
+    }
+    #searchBtn{
+        text-align: center;
+        font-size: small;
+    }
     h1, .bookTitle, .firstName, .lastName{
-        font-size: large;
-        width:150px;
+        font-size: medium;
+        width:200px;
     }
    
     .container .row {
@@ -15,7 +29,7 @@
     
     }
     .container .row .col{
-        min-width: 150px;
+        min-width: 160px;
         font-size: small;
 
     }
@@ -34,4 +48,9 @@
     font-size: small;
     width: 200px;
 }
+}
+
+
+@media screen and (max-width: 1000px){
+
 }
