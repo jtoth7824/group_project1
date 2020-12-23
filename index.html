@@ -1,210 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Materialize - Compiled and minified CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <!--Import Google Icon Font-->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-
-  <body>
-    <nav>
-      <div class="nav-wrapper teal">
-        <a href="#" class="brand-logo flow-text">
-          <i class="material-icons">book</i>
-          Insert Project Name
-        </a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <!--<li><a href="">About</a></li>-->
-          <li><a href="">Contact</a></li>
-          <!--<li><a href="">JavaScript</a></li>-->
-        </ul>
+​
+<head>
+  <!-- Materialize - Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+​
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+​
+<body>
+  <nav>
+    <div class="nav-wrapper teal">
+      <a href="#" class="brand-logo"><i class="material-icons">book</i>Book Movie/Finder</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <!--<li><a href="">About</a></li>-->
+        <li><a href="">Contact</a></li>
+        <!--<li><a href="">JavaScript</a></li>-->
+      </ul>
+    </div>
+  </nav>
+​
+  <div class="container">
+    <br>
+     <!-- <h1>Book/Movie Finder</h1> -->
+    <div class="row">
+      <div class="col s3 in-line">
+​
+        <!-- <input type="text" name="Title" id="bookTitle" placeholder="Book Title" /> -->
+        <input type="text" name="Title" id="firstName" placeholder="Author First Name" />
+        <input type="text" name="Title" id="lastName" placeholder="Author Last Name" />
       </div>
-    </nav>
-
-    <div class="container">
-      <h1>Book/Movie Finder</h1>
-      <input type="text" name="Title" id="bookTitle" placeholder="Book Title" />
-      <input
-        type="text"
-        name="Title"
-        id="firstName"
-        placeholder="Author First Name"
-      />
-      <input
-        type="text"
-        name="Title"
-        id="lastName"
-        placeholder="Author Last Name"
-      />
-      <button class="btn waves-effect" id="searchBtn">
-        <i class="material-icons">search-btn</i>Search
-      </button>
+      <div class="col s3">
+        <button class="btn waves-effect" id="searchBtn">
+          <i class="material-icons">search-btn</i>Search
+        </button>
+      </div>
     </div>
-
-    <br />
-
-    <!--Results Dropdowns-->
-    <!--Book Results-->
-    <div class="container">
-      <!-- Dropdown Trigger -->
-      <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
-        ><i class="material-icons left">arrow_drop_down_circle</i> Book
-        Results</a
-      >
-
-      <!-- Dropdown Structure -->
-      <ul id="dropdown1" class="dropdown-content">
-      </ul>
-    </div>
-
-    <br />
-
-    <div class="container">
-      <!--Movie Results-->
-      <!-- Dropdown Trigger -->
-      <a class="dropdown-trigger2 btn" href="#" data-target="dropdown2"
-        ><i class="material-icons left">arrow_drop_down_circle</i>Movie
-        Results</a
-      >
-
-      <!-- Dropdown Structure -->
-      <ul id="dropdown2" class="dropdown-content">
-        <li><a href="#!">one</a></li>
-        <li><a href="#!">two</a></li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="#!">three</a></li>
-        <li>
-          <a href="#!"><i class="material-icons">view_module</i>four</a>
-        </li>
-        <li>
-          <a href="#!"><i class="material-icons">cloud</i>five</a>
-        </li>
-      </ul>
-    </div>
-
-    <br />
-
-    <div class="container">
-      <!--Event Results-->
-      <!-- Dropdown Trigger -->
-      <a class="dropdown-trigger3 btn" href="#" data-target="dropdown3"
-        ><i class="material-icons left">arrow_drop_down_circle</i>Events
-        Results</a
-      >
-
-      <!-- Dropdown Structure -->
-      <ul id="dropdown3" class="dropdown-content">
-        <li><a href="#!">one</a></li>
-        <li><a href="#!">two</a></li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="#!">three</a></li>
-        <li>
-          <a href="#!"><i class="material-icons">view_module</i>four</a>
-        </li>
-        <li>
-          <a href="#!"><i class="material-icons">cloud</i>five</a>
-        </li>
-      </ul>
-    </div>
-
-    <br />
-
-    <!-- GRID-->
-    <div class="container">
-      <!-- <div class="col s1"><div class="card-panel">1</div></div> -->
-
-      <div class="row">
-        <div class="col s3">
-          <div class="card-panel">
-            <h4>Title Info</h4>
-            <div class="row">
-              <div class="input-field col s12">
-                <input
-                  disabled
-                  value="I am not editable"
-                  id="disabled"
-                  type="text"
-                  class="validate"
-                />
-                <label for="disabled">Title of Book</label>
-              </div>
-              <div class="input-field col s12">
-                <input
-                  disabled
-                  value="I am not editable"
-                  id="disabled"
-                  type="text"
-                  class="validate"
-                />
-                <label for="disabled">Genre</label>
-              </div>
-              <div class="input-field col s12">
-                <input
-                  disabled
-                  value="I am not editable"
-                  id="disabled"
-                  type="text"
-                  class="validate"
-                />
-                <label for="disabled">Number of Pages</label>
-              </div>
-              <div class="input-field col s12">
-                <input
-                  disabled
-                  value="I am not editable"
-                  id="disabled"
-                  type="text"
-                  class="validate"
-                />
-                <label for="disabled">Age Range</label>
-              </div>
+  </div>
+​
+  <br />
+​
+​
+  <div class="container">
+​
+    <div class="row">
+​
+      <div class="col s3">
+        <!--Results Dropdowns-->
+        <!--Book Results-->
+        <!-- <div class="container"> -->
+        <!-- Dropdown Trigger -->
+        <a class="dropdown-trigger btn" href="#" data-target="dropdown1"><i
+            class="material-icons">arrow_drop_down_circle</i> Book Results</a>
+​
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+        </ul>
+        <!-- </div> -->
+​
+        <br />
+        <div class="card-panel">
+          <h4>Book Info</h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <input disabled id="title" type="text" class="validate textColor" />
+              <label for="disabled">Title of Book</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="saleDate" type="text" class="validate textColor" />
+              <label for="disabled">On Sale</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="numPages" type="text" class="validate textColor" />
+              <label for="disabled">Number of Pages</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="format" type="text" class="validate textColor" />
+              <label for="disabled">Book Format</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="price" type="text" class="validate textColor" />
+              <label for="disabled">Price</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="isbn" type="text" class="validate textColor" />
+              <label for="disabled">ISBN</label>
+            </div>
+            <div class="input-field col s12">
+              <img src="" id="bookCover">
             </div>
           </div>
         </div>
-
-        <div class="col s3">
-          <div class="card-panel">
-            <h4>Author Info</h4>
+      </div>
+      <div class="col s3">
+        <div class="card-panel">
+          <h4>Author Info</h4>
+          <div class="row">
+            <div id="authorBio"></div>
+            <img src="" id="authorPhoto">
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col s3">
-          <div class="card-panel">
-            <h4>Movie Info</h4>
+      <div class="col s3">
+        <div class="container">
+          <!--Author Event Results-->
+          <!-- Dropdown Trigger -->
+          <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i
+              class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+​
+          <!-- Dropdown Structure -->
+          <ul id="authorEvents" class="dropdown-content">
+          </ul>
+        </div>
+        <br />
+​
+        <div class="card-panel">
+          <h4>Upcoming Events</h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <input disabled id="eventLocation" type="text" class="validate" />
+              <label for="disabled">Location</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="eventDesc" type="text" class="validate" />
+              <label for="disabled">Description</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="eventDate" type="text" class="validate" />
+              <label for="disabled">Date</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="eventTime" type="text" class="validate" />
+              <label for="disabled">Time</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="eventAddress" type="text" class="validate" />
+              <label for="disabled">Address</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="eventCity" type="text" class="validate" />
+              <label for="disabled">City</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="eventState" type="text" class="validate" />
+              <label for="disabled">State</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="eventZip" type="text" class="validate" />
+              <label for="disabled">Zip</label>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col s3">
-          <div class="card-panel">
-            <h4>Upcoming Events</h4>
+      <div class="col s3">
+        <div class="card-panel">
+          <h4>Movie Info</h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <input disabled id="movieTitle" type="text" class="validate" />
+              <label for="disabled">Title of Movie</label>
+            </div>
+             <!-- <div class="input-field col s12"> -->
+               <!-- <input disabled id="moviePlot" type="text" class="validate" /> -->
+               <!-- <label for="disabled">Plot</label> -->
+             <!-- </div> -->
+             <h6>Plot</h6>
+             <p id="moviePlot"></p>
+             <hr>
+            <div class="input-field col s12">
+              <input disabled id="movieRated" type="text" class="validate" />
+              <label for="disabled">Rated</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="movieRuntime" type="text" class="validate" />
+              <label for="disabled">Running Time</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="movieGenre" type="text" class="validate" />
+              <label for="disabled">Genre</label>
+            </div>
+            <div class="input-field col s12">
+              <input disabled id="movieReleased" type="text" class="validate" />
+              <label for="disabled">Release Date</label>
+            </div>
+            <div class="input-field col s12">
+              <img src="" id="moviePoster">
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
-    <script>dayjs.extend(window.dayjs_plugin_utc)</script>
-    <script src="./assets/js/script.js"></script>
-  </body>
+  </div>
+​
+  <div class="row">
+    <div class="col s3"></div>
+​
+    <div class="col s3"></div>
+  </div>
+​
+  <div class="row">
+​
+  </div>
+​
+  </div>
+​
+​
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+  <script>dayjs.extend(window.dayjs_plugin_utc)</script>
+  <script src="./assets/js/script.js"></script>
+</body>
+​
 </html>
