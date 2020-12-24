@@ -1,11 +1,11 @@
 var searchInfo = {
-    author: {
-        firstName: "",
-        lastName: ""
-    },
-    bookTitle: "",
-    bookisbn: "",
-    eventId: ""
+  author: {
+    firstName: "",
+    lastName: "",
+  },
+  bookTitle: "",
+  bookisbn: "",
+  eventId: "",
 };
 var startup = false;
 var startupEvent = false;
@@ -15,84 +15,84 @@ var bookTitle;
 // var movideapiKey = "bea0d386";
 // var bookapiKey = "tfugk99hpk2nt8sm3ve3peqy";
 /* grab current day using day js to use to limit author events returned */
-var currentDate = dayjs().format('M/DD/YYYY');
+var currentDate = dayjs().format("M/DD/YYYY");
 
 /* function to save author name and book title to local storage */
 function saveSearchInfo() {
-
-    /* save book title and author name to local storage after changing object to String */
-    localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
+  
+  /* save book title and author name to local storage after changing object to String */
+  localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
 }
 
 function convertSearchTerm(searchTerm) {
-    console.log(searchTerm);
-    /* split book title into individual word array based upon space character as separator */
-    var convert = searchTerm.split(" ");
-    /* rejoin each array element with + between each word in string */
-    convert = convert.join("+");
-    return convert;
+  console.log(searchTerm);
+  /* split book title into individual word array based upon space character as separator */
+  var convert = searchTerm.split(" ");
+  /* rejoin each array element with + between each word in string */
+  convert = convert.join("+");
+  return convert;
 }
 
 function buildMovieQueryURL(bookTitle) {
-    var queryURL = "http://www.omdbapi.com/?";
+  var queryURL = "http://www.omdbapi.com/?";
 
-    var movieTitle = convertSearchTerm(bookTitle);
-    var queryParams = {
-        "apikey": "bea0d386"
-    };
-    queryParams.t = movieTitle;
-    console.log(queryURL + $.param(queryParams));
-    return queryURL + $.param(queryParams);
+  var movieTitle = convertSearchTerm(bookTitle);
+  var queryParams = {
+    apikey: "bea0d386",
+  };
+  queryParams.t = movieTitle;
+  console.log(queryURL + $.param(queryParams));
+  return queryURL + $.param(queryParams);
 }
 
 function buildAuthorQueryURL(author) {
-    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/search/views/search-display?";
+  var queryURL ="https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/search/views/search-display?";
 
-    var queryParams = {
-        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
-    };
+  var queryParams = {
+    api_key: "tfugk99hpk2nt8sm3ve3peqy",
+  };
 
-    queryParams.q = convertSearchTerm(author);
-    queryParams.preferLanguage = "EN";
-    console.log(queryURL + $.param(queryParams));
+  queryParams.q = convertSearchTerm(author);
+  queryParams.preferLanguage = "EN";
+  console.log(queryURL + $.param(queryParams));
 
-    return queryURL + $.param(queryParams);
+  return queryURL + $.param(queryParams);
 }
 
 function buildBookTitleQueryURL(isbn) {
-    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/titles/";
+  var queryURL ="https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/titles/";
 
-    queryURL = queryURL + isbn + "?";
-    var queryParams = {
-        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
-    };
+  queryURL = queryURL + isbn + "?";
+  var queryParams = {
+    api_key: "tfugk99hpk2nt8sm3ve3peqy",
+  };
 
-    queryParams.preferLanguage = "EN";
+  queryParams.preferLanguage = "EN";
 
-    return queryURL + $.param(queryParams);
+  return queryURL + $.param(queryParams);
 }
 
 function buildEventQueryURL(authorid, authoreventisbn) {
-    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
+  var queryURL ="https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
 
-    queryURL = queryURL + authorid + "/events?";
+  queryURL = queryURL + authorid + "/events?";
 
-    var queryParams = {
-        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
-    };
+  var queryParams = {
+    api_key: "tfugk99hpk2nt8sm3ve3peqy",
+  };
 
-    queryParams.isbn = authoreventisbn;
-    queryParams.eventDateFrom = currentDate;
-    queryParams.sort = "eventdate";
-    console.log(queryURL + $.param(queryParams));
+  queryParams.isbn = authoreventisbn;
+  queryParams.eventDateFrom = currentDate;
+  queryParams.sort = "eventdate";
+  console.log(queryURL + $.param(queryParams));
 
-    return queryURL + $.param(queryParams);
+  return queryURL + $.param(queryParams);
 }
 
 function retrieveCoverArt(isbn) {
-    var srcCoverArt = "http://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
+  var srcCoverArt = "http://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
 
-    return srcCoverArt;
+  return srcCoverArt;
 }
 
 function displayMovieInfo() {
@@ -141,9 +141,9 @@ function displayMovieInfo() {
 }
 
 function init() {
-    // Get stored events from localStorage
-    // Parsing the JSON string to an object
-    var savedInfo = JSON.parse(localStorage.getItem("SearchInfo"));
+  // Get stored events from localStorage
+  // Parsing the JSON string to an object
+  var savedInfo = JSON.parse(localStorage.getItem("SearchInfo"));
 
     // If events were not retrieved from localStorage, update local storage to searchInfo object
     if (savedInfo === null) {
@@ -164,9 +164,9 @@ function init() {
 
 init();
 
-$('.dropdown-trigger').dropdown();
-$('.dropdown-trigger2').dropdown();
-$('.dropdown-trigger3').dropdown();
+$(".dropdown-trigger").dropdown();
+$(".dropdown-trigger2").dropdown();
+$(".dropdown-trigger3").dropdown();
 
 
 
@@ -381,52 +381,52 @@ $("#searchBtn").on("click", function () {
 });
 
 function buildAuthorContentQueryURL(forcedauthorid) {
-    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
-    queryURL = queryURL + forcedauthorid + "?";
-    var queryParams = {
-        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
-    }
-    queryParams.preferLanguage = "EN";
-    console.log("authorcontent query");
-    return queryURL + $.param(queryParams);
+  var queryURL ="https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
+  queryURL = queryURL + forcedauthorid + "?";
+  var queryParams = {
+    api_key: "tfugk99hpk2nt8sm3ve3peqy",
+  };
+  queryParams.preferLanguage = "EN";
+  console.log("authorcontent query");
+  return queryURL + $.param(queryParams);
 }
 
 function buildAuthorTitlesQueryURL(forcedauthorid) {
-    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
-    queryURL = queryURL + forcedauthorid + "/titles?";
+  var queryURL ="https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
 
-    var queryParams = {
-        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
+  queryURL = queryURL + forcedauthorid + "/titles?";
 
-    }
-    queryParams.preferLanguage = "EN";
-    queryParams.rows = 0;
-    //   queryParams.format = "HC";
-    queryParams.language = "E";
-    return queryURL + $.param(queryParams);
+  var queryParams = {
+    api_key: "tfugk99hpk2nt8sm3ve3peqy",
+  };
+  queryParams.preferLanguage = "EN";
+  queryParams.rows = 0;
+  //   queryParams.format = "HC";
+  queryParams.language = "E";
+  return queryURL + $.param(queryParams);
 }
 
 function buildPickedEventQueryURL(whichEvent) {
-    var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/events/";
+  var queryURL ="https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/events/";
 
-    queryURL = queryURL + whichEvent + "?";
+  queryURL = queryURL + whichEvent + "?";
 
-    var queryParams = {
-        "api_key": "tfugk99hpk2nt8sm3ve3peqy"
-    }
+  var queryParams = {
+    api_key: "tfugk99hpk2nt8sm3ve3peqy",
+  };
 
-    queryParams.preferLanguage = "EN";
-    return queryURL + $.param(queryParams);
+  queryParams.preferLanguage = "EN";
+  return queryURL + $.param(queryParams);
 }
 
 function getAuthorInfo() {
-    var url1;
-    var author = searchInfo.author.firstName + " " + searchInfo.author.lastName;
-    url1 = buildAuthorQueryURL(author);
-    $.ajax({
-        type: "GET",
-        url: url1,
-        success: function (response) {
+  var url1;
+  var author = searchInfo.author.firstName + " " + searchInfo.author.lastName;
+  url1 = buildAuthorQueryURL(author);
+  $.ajax({
+    type: "GET",
+    url: url1,
+    success: function (response) {
             if(response.data.results[0].authorBio === null || response.data.results[0].authorBio === "N/A") {
                 $("#authorBio").html("No author biography provided.");
                 $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
@@ -486,14 +486,14 @@ function clearAuthorInfo() {
 }
 
 function clearMovieInfo() {
-    $("#movieTitle").val("");
-    $("#moviePlot").text("");
-    $("#movieRated").val("");
-    $("#movieRuntime").val("");
-    $("#movieGenre").val("");
-    $("#movieReleased").val("");
-    $("moviePoster").removeAttr("src");
-    $("#moviePoster").attr("src", "");
+  $("#movieTitle").val("");
+  $("#moviePlot").text("");
+  $("#movieRated").val("");
+  $("#movieRuntime").val("");
+  $("#movieGenre").val("");
+  $("#movieReleased").val("");
+  $("moviePoster").removeAttr("src");
+  $("#moviePoster").attr("src", "");
 }
 
 function clearEventInfo() {

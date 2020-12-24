@@ -1,74 +1,93 @@
 .solidDivider {
-    color: black;
+  color: black;
 }
 
 .textColor {
-    color: black;
+  color: black;
 }
 
-input:not([type]):disabled, input:not([type])[readonly="readonly"], input[type=text]:not(.browser-default):disabled, input[type=text]:not(.browser-default)[readonly="readonly"], input[type=password]:not(.browser-default):disabled, input[type=password]:not(.browser-default)[readonly="readonly"], input[type=email]:not(.browser-default):disabled, input[type=email]:not(.browser-default)[readonly="readonly"], input[type=url]:not(.browser-default):disabled, input[type=url]:not(.browser-default)[readonly="readonly"], input[type=time]:not(.browser-default):disabled, input[type=time]:not(.browser-default)[readonly="readonly"], input[type=date]:not(.browser-default):disabled, input[type=date]:not(.browser-default)[readonly="readonly"], input[type=datetime]:not(.browser-default):disabled, input[type=datetime]:not(.browser-default)[readonly="readonly"], input[type=datetime-local]:not(.browser-default):disabled, input[type=datetime-local]:not(.browser-default)[readonly="readonly"], input[type=tel]:not(.browser-default):disabled, input[type=tel]:not(.browser-default)[readonly="readonly"], input[type=number]:not(.browser-default):disabled, input[type=number]:not(.browser-default)[readonly="readonly"], input[type=search]:not(.browser-default):disabled, input[type=search]:not(.browser-default)[readonly="readonly"], textarea.materialize-textarea:disabled, textarea.materialize-textarea[readonly="readonly"] {
-    color: black;
-    border-bottom: 1px solid rgba(0,0,0,0.42);
+input:not([type]):disabled,
+input:not([type])[readonly="readonly"],
+input[type="text"]:not(.browser-default):disabled,
+input[type="text"]:not(.browser-default)[readonly="readonly"],
+input[type="password"]:not(.browser-default):disabled,
+input[type="password"]:not(.browser-default)[readonly="readonly"],
+input[type="email"]:not(.browser-default):disabled,
+input[type="email"]:not(.browser-default)[readonly="readonly"],
+input[type="url"]:not(.browser-default):disabled,
+input[type="url"]:not(.browser-default)[readonly="readonly"],
+input[type="time"]:not(.browser-default):disabled,
+input[type="time"]:not(.browser-default)[readonly="readonly"],
+input[type="date"]:not(.browser-default):disabled,
+input[type="date"]:not(.browser-default)[readonly="readonly"],
+input[type="datetime"]:not(.browser-default):disabled,
+input[type="datetime"]:not(.browser-default)[readonly="readonly"],
+input[type="datetime-local"]:not(.browser-default):disabled,
+input[type="datetime-local"]:not(.browser-default)[readonly="readonly"],
+input[type="tel"]:not(.browser-default):disabled,
+input[type="tel"]:not(.browser-default)[readonly="readonly"],
+input[type="number"]:not(.browser-default):disabled,
+input[type="number"]:not(.browser-default)[readonly="readonly"],
+input[type="search"]:not(.browser-default):disabled,
+input[type="search"]:not(.browser-default)[readonly="readonly"],
+textarea.materialize-textarea:disabled,
+textarea.materialize-textarea[readonly="readonly"] {
+  color: black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
 }
 
 /* used to hide html elements on page */
 .hidden {
-    display: none;
+  display: none;
 }
 
-@media screen and (max-width: 860px){
-  
-  
-    .nav-wrapper a{
-   font-size: medium;
-   margin: 0px;    
-    }
-    .container{
-       width: 180px;
-        font-size:small;
+@media screen and (max-width: 860px) {
+  .nav-wrapper a {
+    font-size: medium;
+    margin: 0px;
+  }
+  .container {
+    width: 180px;
+    font-size: small;
+  }
+  .row .s3 {
+    min-width: 180px;
+    font-size: small;
+  }
+  #searchBtn {
+    text-align: center;
+    font-size: small;
+  }
+  h1,
+  .bookTitle,
+  .firstName,
+  .lastName {
+    font-size: medium;
+    width: 200px;
+  }
 
-    }
-    .row .s3{ min-width:180px;
-        font-size: small;
+  .container .row {
+    width: 100%;
+  }
+  .container .row .col {
+    min-width: 160px;
+    font-size: small;
+  }
+  h4,
+  .input-field {
+    font-size: small;
+  }
 
+  #disabled {
+    font-size: small;
+    width: 80%;
+  }
 
-    }
-    #searchBtn{
-        text-align: center;
-        font-size: small;
-    }
-    h1, .bookTitle, .firstName, .lastName{
-        font-size: medium;
-        width:200px;
-    }
-   
-    .container .row {
-        width: 100%;
-    
-    }
-    .container .row .col{
-        min-width: 160px;
-        font-size: small;
-
-    }
-    h4, .input-field {
-        
-        font-size: small;
-    }
-
-    #disabled{
-        font-size: small;
-        width:80%;
-    
-}
-
-.card-panel{
+  .card-panel {
     font-size: small;
     width: 200px;
+  }
 }
-}
 
-
-@media screen and (max-width: 1000px){
-
+@media screen and (max-width: 1000px) {
 }
