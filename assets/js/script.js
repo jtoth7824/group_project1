@@ -572,7 +572,7 @@ function getBookInfo() {
     url3 = buildBookTitleQueryURL(whichBook);
     $.ajax({
         type: "GET",
-        url: url4,
+        url: url3,
         success: function (response) {
             console.log(response);
             bookTitle = response.data.titles[0].title;
