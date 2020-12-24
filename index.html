@@ -107,19 +107,30 @@
         </div>
       </div>
       <div class="col s3">
-        <div class="container">
+         <!-- <div class="container"> -->
           <!--Author Event Results-->
           <!-- Dropdown Trigger -->
-          <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i
-              class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+           <!-- <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i -->
+               <!-- class="material-icons left">arrow_drop_down_circle</i>Author Events</a> -->
 ​
           <!-- Dropdown Structure -->
-          <ul id="authorEvents" class="dropdown-content">
-          </ul>
-        </div>
-        <br />
+           <!-- <ul id="authorEvents" class="dropdown-content"> -->
+           <!-- </ul> -->
+         <!-- </div> -->
+         <!-- <br> -->
 ​
-        <div class="card-panel">
+        <div class="card-panel" id="eventCard">
+          <div class="container">
+            <!--Author Event Results-->
+            <!-- Dropdown Trigger -->
+            <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i
+                class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+  ​
+            <!-- Dropdown Structure -->
+            <ul id="authorEvents" class="dropdown-content">
+            </ul>
+          </div>
+          <br>
           <h4>Upcoming Events</h4>
           <div class="row">
             <div class="input-field col s12">
@@ -156,9 +167,12 @@
             </div>
           </div>
         </div>
+        <div class="card-panel" id="eventNotFound">
+          <p id="alternateEventText"></p>
+        </div>
       </div>
       <div class="col s3">
-        <div class="card-panel">
+        <div class="card-panel" id="movieCard">
           <h4>Movie Info</h4>
           <div class="row">
             <div class="input-field col s12">
@@ -190,8 +204,12 @@
             </div>
             <div class="input-field col s12">
               <img src="" id="moviePoster">
+              <p id="notAvailableText"></p>
             </div>
           </div>
+        </div>
+        <div class="card-panel" id="movieNotFound">
+          <p id="alternateMovieText"></p>
         </div>
       </div>
     </div>
