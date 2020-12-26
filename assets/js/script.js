@@ -1,18 +1,17 @@
 var searchInfo = {
   author: {
     firstName: "",
-    lastName: "",
+    lastName: ""
   },
   bookTitle: "",
   bookisbn: "",
-  eventId: "",
+  authorEventId: "",
+  authorID: ""
 };
 var startup = false;
 var startupEvent = false;
-var authorID;
-var bookTitle;
 
-// var movideapiKey = "bea0d386";
+// var movieapiKey = "bea0d386";
 // var bookapiKey = "tfugk99hpk2nt8sm3ve3peqy";
 /* grab current day using day js to use to limit author events returned */
 var currentDate = dayjs().format("M/DD/YYYY");
@@ -41,7 +40,6 @@ function buildMovieQueryURL(bookTitle) {
     apikey: "bea0d386",
   };
   queryParams.t = movieTitle;
-  console.log(queryURL + $.param(queryParams));
   return queryURL + $.param(queryParams);
 }
 
@@ -53,8 +51,7 @@ function buildAuthorQueryURL(author) {
   };
 
   queryParams.q = convertSearchTerm(author);
-  queryParams.preferLanguage = "EN";
-  console.log(queryURL + $.param(queryParams));
+  queryParams.preferLanguage = "E";
 
   return queryURL + $.param(queryParams);
 }
@@ -67,7 +64,7 @@ function buildBookTitleQueryURL(isbn) {
     api_key: "tfugk99hpk2nt8sm3ve3peqy",
   };
 
-  queryParams.preferLanguage = "EN";
+  queryParams.preferLanguage = "E";
 
   return queryURL + $.param(queryParams);
 }
@@ -84,7 +81,6 @@ function buildEventQueryURL(authorid, authoreventisbn) {
   queryParams.isbn = authoreventisbn;
   queryParams.eventDateFrom = currentDate;
   queryParams.sort = "eventdate";
-  console.log(queryURL + $.param(queryParams));
 
   return queryURL + $.param(queryParams);
 }
@@ -99,8 +95,7 @@ function displayMovieInfo() {
     var url;
 
     /* build url for movie api call utilzing the book title chosen */
-    url = buildMovieQueryURL(bookTitle);
-    console.log(url);
+    url = buildMovieQueryURL(searchInfo.bookTitle);
     /* make ajax call to retrieve movie object */
     $.ajax({
         type: "GET",
@@ -113,9 +108,7 @@ function displayMovieInfo() {
             } else {
                 $("#movieNotFound").addClass("hidden");
                 $("#movieCard").removeClass("hidden");
-                console.log(response);
                 clearMovieInfo();
-                console.log("movie array");
 
                 $("#movieTitle").val(response.Title);
                 $("#moviePlot").text(response.Plot);
@@ -150,8 +143,11 @@ function init() {
         localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
     } else {
         startup = true;
-        startup = true;
+        startupEvent = true;
         searchInfo = savedInfo;
+        console.log("in else at init");
+        console.log("searchInfo");
+        console.log(searchInfo);
         clearAuthorInfo();
         clearBookInfo();
         clearEventInfo();
@@ -360,10 +356,8 @@ $.ajax({
 
 $("#searchBtn").on("click", function () {
     /* save user entered info to searchInfo object */
-    //searchInfo.bookTitle = $("#bookTitle").val().trim();
     searchInfo.author.firstName = $("#firstName").val().trim();
     searchInfo.author.lastName = $("#lastName").val().trim();
-    console.log(searchInfo);
     /* save user entered search criteria to local storage */
     saveSearchInfo();
     /*clear search terms in input boxes */
@@ -386,8 +380,7 @@ function buildAuthorContentQueryURL(forcedauthorid) {
   var queryParams = {
     api_key: "tfugk99hpk2nt8sm3ve3peqy",
   };
-  queryParams.preferLanguage = "EN";
-  console.log("authorcontent query");
+  queryParams.preferLanguage = "E";
   return queryURL + $.param(queryParams);
 }
 
@@ -399,8 +392,10 @@ function buildAuthorTitlesQueryURL(forcedauthorid) {
   var queryParams = {
     api_key: "tfugk99hpk2nt8sm3ve3peqy",
   };
-  queryParams.preferLanguage = "EN";
+  queryParams.preferLanguage = "E";
+  queryParams.language = "E";
   queryParams.rows = 0;
+  queryParams.contribRoleCode = "A";
   //   queryParams.format = "HC";
   queryParams.language = "E";
   return queryURL + $.param(queryParams);
@@ -434,9 +429,7 @@ function getAuthorInfo() {
             else {
                 $("#authorBio").html(response.data.results[0].authorBio);
                 $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
-                authorID = response.data.results[0].authorId;
-                console.log("authorID after setting from response");
-                console.log(authorID);
+                searchInfo.authorID = response.data.results[0].authorId;
                 var url2;
                 url2 = buildAuthorTitlesQueryURL(response.data.results[0].authorId);
                 $.ajax({
@@ -457,7 +450,6 @@ function getAuthorInfo() {
                             $(listEl).append(aEl);
                             $(listDivEl).addClass("divider");
                             $(listDivEl).attr("tabindex", "-1");
-                            console.log(listEl);
                             $("#dropdown1").append(listEl);
                             $("#dropdown1").append(listDivEl);
                         }
@@ -476,13 +468,11 @@ function clearBookInfo() {
     $("#price").val("");
     $("#isbn").val("");
     $("#bookCover").removeAttr("src");
-    //    $("#bookCover").attr("src", "");
 }
 
 function clearAuthorInfo() {
     $("#authorSpotlight").text("");
     $("#authorSpotlight").removeAttr("src");
-    //    $("#authorPhotoURL").attr("src", "");
 }
 
 function clearMovieInfo() {
@@ -516,19 +506,21 @@ $(document).on("click", ".event-list-item", getEventInfo);
 function getEventInfo() {
 
     if (startupEvent) {
-        whichEvent = searchInfo.eventId;
+        console.log("Step 1 = startup is true")
+        whichEvent = searchInfo.authorEventId;
         startupEvent = false;
-        console.log("eventId:  " + searchInfo.eventId);
+        console.log("eventId:  " + searchInfo.authorEventId);
         console.log("whichEvent:  " + whichEvent);
     } else {
         var whichEvent = $(this).attr("eventId");
         console.log("inside else");
         console.log(whichEvent);
-        searchInfo.eventId = $(this).attr("eventId");
+        searchInfo.authorEventId = $(this).attr("eventId");
+        console.log("saving eventid");
+        console.log(searchInfo.authorEventId);
+        console.log("Search Info is: " + searchInfo);
         saveSearchInfo();
     }
-
-    //    var whichEvent = $(this).attr("eventId");
 
     var url;
     url = buildPickedEventQueryURL(whichEvent);
@@ -567,15 +559,12 @@ function getBookInfo() {
         saveSearchInfo();
     }
 
-    //    var whichBook = $(this).attr("isbn");
-
     url3 = buildBookTitleQueryURL(whichBook);
     $.ajax({
         type: "GET",
         url: url3,
         success: function (response) {
-            console.log(response);
-            bookTitle = response.data.titles[0].title;
+            searchInfo.bookTitle = response.data.titles[0].title;
 
             $("#title").val(response.data.titles[0].title);
             if(response.data.titles[0].pages === null) {
@@ -586,29 +575,23 @@ function getBookInfo() {
             }
             $("#saleDate").val(response.data.titles[0].onsale);
             $("#format").val(response.data.titles[0].format.description);
-            $("#price").val("$" + response.data.titles[0].price[1].amount);
+            if(response.data.titles[0].price[0].currencyCode === "USD") {
+                $("#price").val("$" + response.data.titles[0].price[0].amount);
+            }
+            else {
+                $("#price").val("$" + response.data.titles[0].price[1].amount);
+            }
             $("#isbn").val(String(response.data.titles[0].isbn));
             M.updateTextFields();
             $("#bookCover").attr("src", retrieveCoverArt(response.data.titles[0].isbn));
             displayMovieInfo();
 
-            console.log(authorID);
-            console.log(response.data.titles[0].isbn);
-            url4 = buildEventQueryURL(authorID, response.data.titles[0].isbn);
+            url4 = buildEventQueryURL(searchInfo.authorID, response.data.titles[0].isbn);
             /* api call to retrieve author events to populate dropdown list */
             $.ajax({
                 type: "GET",
                 url: url4,
                 success: function (response) {
-                    alert("success");
-                    console.log("response event not found");
-                    console.log(response.message);
-                    if (response.message === "Not found") {
-                        $("#eventCard").addClass("hidden");
-                        $("#eventNotFound").removeClass("hidden");
-                        $("#alternateEventText").text("No movie found that matched the book selected.");
-                    } else {
-                        alert("in else when event found")
                         $("#eventNotFound").addClass("hidden");
                         $("#eventCard").removeClass("hidden");
                         /* add each event to list */
@@ -627,12 +610,13 @@ function getBookInfo() {
                             $("#authorEvents").append(listEl);
                             $("#authorEvents").append(listDivEl);
                         }
-                    }
                 },
                 error: function(){
                     $("#eventCard").addClass("hidden");
                     $("#eventNotFound").removeClass("hidden");
                     $("#alternateEventText").text("No author event found that matched the book selected.");
+                    searchInfo.authorEventId = "";
+                    saveSearchInfo();
                 }
             });
         }
