@@ -67,7 +67,7 @@
         <!-- </div> -->
 ​
         <br />
-        <div class="card-panel">
+        <div class="card-panel" id="bookCard">
           <h4>Book Info</h4>
           <div class="row">
             <div class="input-field col s12">
@@ -95,18 +95,28 @@
               <label for="disabled">ISBN</label>
             </div>
             <div class="input-field col s12">
-              <img src="" id="bookCover">
+              <div class="center-align">
+                <img class="responsive-img bookCoverSize" src="" id="bookCover">
+              </div>
             </div>
           </div>
         </div>
+        <div class="card-panel" id="bookNotFound">
+          <p class="textColor" id="alternateBookText"></p>
+        </div>
       </div>
       <div class="col s3">
-        <div class="card-panel">
+        <div class="card-panel" id="authorCard">
           <h4>Author Info</h4>
           <div class="row">
             <div id="authorBio"></div>
-            <img src="" id="authorPhoto">
+            <div class="center-align">
+              <img src="" id="authorPhoto" class="authorPhotoSize">
+            </div>
           </div>
+        </div>
+        <div class="card-panel" id="authorNotFound">
+          <p class="textColor" id="alternateAuthorText"></p>
         </div>
       </div>
       <div class="col s3">
@@ -205,8 +215,8 @@
               <input disabled id="movieReleased" type="text" class="validate" />
               <label for="disabled">Release Date</label>
             </div>
-            <div class="input-field col s12">
-              <img src="" id="moviePoster">
+            <div class="input-field col s12 center-align">
+              <img src="" id="moviePoster" class="moviePosterSize">
               <p id="notAvailableText"></p>
             </div>
           </div>
