@@ -6,6 +6,24 @@
   color: black;
 }
 
+.moviePosterSize {
+  max-width: 100%;
+  height: auto;
+  max-height: 260px;
+}
+
+.authorPhotoSize {
+  max-width: 100%;
+  height: auto;
+  max-height: 260px;
+}
+
+.bookCoverSize {
+  max-width: 100%;
+  height: auto;
+  max-height: 260px;
+}
+
 input:not([type]):disabled,
 input:not([type])[readonly="readonly"],
 input[type="text"]:not(.browser-default):disabled,
