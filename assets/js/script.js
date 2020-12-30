@@ -32,7 +32,7 @@ function convertSearchTerm(searchTerm) {
 }
 
 function buildMovieQueryURL(bookTitle) {
-  var queryURL = "http://www.omdbapi.com/?";
+  var queryURL = "https://www.omdbapi.com/?";
 
   var movieTitle = convertSearchTerm(bookTitle);
   var queryParams = {
@@ -85,7 +85,7 @@ function buildEventQueryURL(authorid, authoreventisbn) {
 }
 
 function retrieveCoverArt(isbn) {
-  var srcCoverArt = "http://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
+  var srcCoverArt = "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
 
   return srcCoverArt;
 }
@@ -575,7 +575,12 @@ function getEventInfo() {
           success: function (response) {
   
               $("#eventLocation").val(response.data.events[0].location)
-              $("#eventDesc").val(response.data.events[0].description);
+              if(!(response.data.events[0].description === null)) {
+                $("#eventDescription").text(response.data.events[0].description);
+              }
+              else {
+                  $("#eventDescription").text("N/A");
+              }
               $("#eventDate").val(response.data.events[0].eventDate);
               $("#eventAddress").val(response.data.events[0].address1);
               $("#eventCity").val(response.data.events[0].city);
