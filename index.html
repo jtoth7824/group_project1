@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 ​
+
 <head>
   <!-- Materialize - Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="stylesheet" href="./assets/css/style.css" />
-​
+  ​
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
 </head>
 ​
+
 <body class="#e3f2fd blue lighten-5" background="./assets/background.jpg">
   <nav>
     <div class="nav-wrapper teal">
@@ -24,50 +26,46 @@
       </ul>
     </div>
   </nav>
-​
+  ​
   <div class="container">
     <br>
-     <!-- <h1>Book/Movie Finder</h1> -->
-    <div class="row card-panel">
+    <div class="row card-panel rowMargin">
       <div class="col s3"></div>
       <div class="col s3 in-line">
-​
-        <!-- <input type="text" name="Title" id="bookTitle" placeholder="Book Title" /> -->
         <input type="text" name="Title" id="firstName" placeholder="Author First Name" />
+      </div>
+      <div class="col s3 in-line">
         <input type="text" name="Title" id="lastName" placeholder="Author Last Name" />
       </div>
       <div class="col s3">
-        <button class="btn waves-effect" id="searchBtn">
-          <i class="material-icons">search-btn</i>Search
-        </button>
+        <a class="waves-effect btn" id="searchBtn"><i class="material-icons left">search</i>Search</a>
+        <!-- <button class="btn waves-effect" id="searchBtn"> -->
+        <!-- <i class="material-icons">search-btn</i>Search -->
+        <!-- </button> -->
       </div>
       <div class="col s3"></div>
     </div>
-  </div>
-  
-​
-  <br />
-​
-​
+  </div>​
+  ​
   <div class="container">
-​
+    ​
     <div class="row">
-​
+      ​
       <div class="col s3">
         <!--Results Dropdowns-->
         <!--Book Results-->
         <!-- <div class="container"> -->
-        <!-- Dropdown Trigger -->
-        <a class="dropdown-trigger btn" href="#" data-target="dropdown1"><i
-            class="material-icons">arrow_drop_down_circle</i> Book Results</a>
-​
-        <!-- Dropdown Structure -->
-        <ul id="dropdown1" class="dropdown-content">
-        </ul>
-        <!-- </div> -->
-​
-        <br />
+
         <div class="card-panel" id="bookCard">
+
+          <!-- Dropdown Trigger -->
+          <a class="dropdown-trigger btn" href="#" data-target="dropdown1"><i
+              class="material-icons left">arrow_drop_down_circle</i> Book Results</a>
+          <!-- Dropdown Structure -->
+          <ul id="dropdown1" class="dropdown-content">
+          </ul>
+          ​
+          <br>
           <h4>Book Info</h4>
           <div class="row">
             <div class="input-field col s12">
@@ -120,40 +118,28 @@
         </div>
       </div>
       <div class="col s3">
-         <!-- <div class="container"> -->
+        ​
+        <div class="card-panel" id="eventCard">
           <!--Author Event Results-->
           <!-- Dropdown Trigger -->
-           <!-- <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i -->
-               <!-- class="material-icons left">arrow_drop_down_circle</i>Author Events</a> -->
-​
+          <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i
+              class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+          ​
           <!-- Dropdown Structure -->
-           <!-- <ul id="authorEvents" class="dropdown-content"> -->
-           <!-- </ul> -->
-         <!-- </div> -->
-         <!-- <br> -->
-​
-        <div class="card-panel" id="eventCard">
-          <div class="container">
-            <!--Author Event Results-->
-            <!-- Dropdown Trigger -->
-            <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i
-                class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
-  ​
-            <!-- Dropdown Structure -->
-            <ul id="authorEvents" class="dropdown-content">
-            </ul>
-          </div>
+          <ul id="authorEvents" class="dropdown-content">
+          </ul>
           <br>
+
           <h4>Upcoming Events</h4>
           <div class="row">
             <div class="input-field col s12">
               <input disabled id="eventLocation" type="text" class="validate" />
               <label for="disabled">Location</label>
             </div>
-             <!-- <div class="input-field col s12"> -->
-               <!-- <input disabled id="eventDesc" type="text" class="validate" /> -->
-               <!-- <label for="disabled">Description</label> -->
-             <!-- </div> -->
+            <!-- <div class="input-field col s12"> -->
+            <!-- <input disabled id="eventDesc" type="text" class="validate" /> -->
+            <!-- <label for="disabled">Description</label> -->
+            <!-- </div> -->
             <h6 class="textColor">Description</h6>
             <p class="textColor" id="eventDescription"></p>
             <hr>
@@ -195,13 +181,13 @@
               <input disabled id="movieTitle" type="text" class="validate" />
               <label for="disabled">Title of Movie</label>
             </div>
-             <!-- <div class="input-field col s12"> -->
-               <!-- <input disabled id="moviePlot" type="text" class="validate" /> -->
-               <!-- <label for="disabled">Plot</label> -->
-             <!-- </div> -->
-             <h6>Plot</h6>
-             <p id="moviePlot"></p>
-             <hr>
+            <!-- <div class="input-field col s12"> -->
+            <!-- <input disabled id="moviePlot" type="text" class="validate" /> -->
+            <!-- <label for="disabled">Plot</label> -->
+            <!-- </div> -->
+            <h6>Plot</h6>
+            <p id="moviePlot"></p>
+            <hr>
             <div class="input-field col s12">
               <input disabled id="movieRated" type="text" class="validate" />
               <label for="disabled">Rated</label>
@@ -229,28 +215,18 @@
         </div>
       </div>
     </div>
-  </div>
-​
-  <div class="row">
-    <div class="col s3"></div>
-​
-    <div class="col s3"></div>
-  </div>
-​
-  <div class="row">
-​
-  </div>
-​
-  </div>
-​
-​
+  </div>  ​
+  ​
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
   <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
-  <script>dayjs.extend(window.dayjs_plugin_utc)</script>
+  <script>
+    dayjs.extend(window.dayjs_plugin_utc)
+  </script>
   <script src="./assets/js/script.js"></script>
 </body>
 ​
+
 </html>
