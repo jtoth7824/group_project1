@@ -477,11 +477,12 @@ function getAuthorInfo() {
                           $(aEl).attr("isbn", response.data.titles[i].isbn);
                           $(aEl).text(response.data.titles[i].title);
                           $(aEl).addClass("book-list-item");
+                          $(aEl).addClass("collection-item");
                           $(listEl).append(aEl);
-                          $(listDivEl).addClass("divider");
-                          $(listDivEl).attr("tabindex", "-1");
+//                          $(listDivEl).addClass("divider");
+//                          $(listDivEl).attr("tabindex", "-1");
                           $("#dropdown1").append(listEl);
-                          $("#dropdown1").append(listDivEl);
+//                          $("#dropdown1").append(listDivEl);
                       }
                       $("#bookNotFound").addClass("hidden");
                       $("#bookCard").removeClass("hidden");
@@ -665,11 +666,12 @@ function getBookInfo() {
                               $(aEl).attr("eventId", response.data.events[i].eventId);
                               $(aEl).text(response.data.events[i].location);
                               $(aEl).addClass("event-list-item");
+                              $(aEl).addClass("collection-item");
                               $(listEl).append(aEl);
-                              $(listDivEl).addClass("divider");
-                              $(listDivEl).attr("tabindex", "-1");
+//                              $(listDivEl).addClass("divider");
+//                              $(listDivEl).attr("tabindex", "-1");
                               $("#authorEvents").append(listEl);
-                              $("#authorEvents").append(listDivEl);
+//                              $("#authorEvents").append(listDivEl);
                           }
                   },
                   error: function(){
