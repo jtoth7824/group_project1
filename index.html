@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 ​
-
 <head>
   <!-- Materialize - Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
@@ -14,10 +13,9 @@
   <title>Document</title>
 </head>
 ​
-
-<body class="#e3f2fd blue lighten-5" background="./assets/background.jpg">
+<body>
   <nav>
-    <div class="nav-wrapper teal">
+    <div class="nav-wrapper navColor">
       <a href="#" class="brand-logo center"><i class="material-icons">book</i>Book Movie/Finder</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <!--<li><a href="">About</a></li>-->
@@ -29,203 +27,195 @@
   ​
   <div class="container">
     <br>
-    <div class="row card-panel rowMargin">
-      <div class="col s3"></div>
-      <div class="col s3 in-line">
-        <input type="text" name="Title" id="firstName" placeholder="Author First Name" />
+    <div class="container">
+      <div class="row rowMargin">
+        <div class="col s3"></div>
+        <div class="col s3">
+          <input class="textColorInput" type="text" name="Title" id="firstName" placeholder="Author First Name" />
+        </div>
+        <div class="col s3">
+          <input class="textColorInput" type="text" name="Title" id="lastName" placeholder="Author Last Name" />
+        </div>
+        <div class="col s3">
+          <a class="waves-effect waves-blue btn buttonColor" id="searchBtn"><i class="material-icons left">search</i>Search</a>
+        </div>
+        <div class="col s3"></div>
       </div>
-      <div class="col s3 in-line">
-        <input type="text" name="Title" id="lastName" placeholder="Author Last Name" />
-      </div>
-      <div class="col s3">
-        <a class="waves-effect btn" id="searchBtn"><i class="material-icons left">search</i>Search</a>
-        <!-- <button class="btn waves-effect" id="searchBtn"> -->
-        <!-- <i class="material-icons">search-btn</i>Search -->
-        <!-- </button> -->
-      </div>
-      <div class="col s3"></div>
-    </div>
-  </div>​
-  ​
-  <div class="container">
+    </div>​
     ​
-    <div class="row">
-      ​
-      <div class="col s3">
-        <!--Results Dropdowns-->
-        <!--Book Results-->
-        <!-- <div class="container"> -->
+    <div class="container">
+      <div class="row">
+        <div class="col s3 textColor">
+          <div class="card-panel" id="bookCard">
 
-        <div class="card-panel" id="bookCard">
-
-          <!-- Dropdown Trigger -->
-          <a class="dropdown-trigger btn" href="#" data-target="dropdown1"><i
-              class="material-icons left">arrow_drop_down_circle</i> Book Results</a>
-          <!-- Dropdown Structure -->
-          <ul id="dropdown1" class="dropdown-content">
-          </ul>
-          ​
-          <br>
-          <h4>Book Info</h4>
-          <div class="row">
-            <div class="input-field col s12">
-              <input disabled id="title" type="text" class="validate textColor" />
-              <label for="disabled">Title of Book</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="saleDate" type="text" class="validate textColor" />
-              <label for="disabled">On Sale</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="numPages" type="text" class="validate textColor" />
-              <label for="disabled">Number of Pages</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="format" type="text" class="validate textColor" />
-              <label for="disabled">Book Format</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="price" type="text" class="validate textColor" />
-              <label for="disabled">Price</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="isbn" type="text" class="validate textColor" />
-              <label for="disabled">ISBN</label>
-            </div>
-            <div class="input-field col s12">
-              <div class="center-align">
-                <img class="responsive-img bookCoverSize" src="" id="bookCover">
+            <!-- Dropdown Trigger -->
+            <a class="dropdown-trigger btn buttonColor" href="#" data-target="dropdown1"><i
+                class="material-icons left">arrow_drop_down_circle</i> Book Results</a>
+            <!-- Dropdown Structure -->
+            <ul id="dropdown1" class="dropdown-content collection">
+            </ul>
+            ​
+            <br>
+            <h4 class="textColor">Book Info</h4>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled id="title" type="text" class="validate textColor" />
+                <label for="disabled">Title of Book</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="saleDate" type="text" class="validate textColor" />
+                <label for="disabled">On Sale</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="numPages" type="text" class="validate textColor" />
+                <label for="disabled">Number of Pages</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="format" type="text" class="validate textColor" />
+                <label for="disabled">Book Format</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="price" type="text" class="validate textColor" />
+                <label for="disabled">Price</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="isbn" type="text" class="validate textColor" />
+                <label for="disabled">ISBN</label>
+              </div>
+              <div class="input-field col s12">
+                <div class="center-align">
+                  <img class="responsive-img bookCoverSize" src="" id="bookCover">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="card-panel" id="bookNotFound">
-          <p class="textColor" id="alternateBookText"></p>
-        </div>
-      </div>
-      <div class="col s3">
-        <div class="card-panel" id="authorCard">
-          <h4>Author Info</h4>
-          <div class="row">
-            <div id="authorBio"></div>
-            <div class="center-align">
-              <img src="" id="authorPhoto" class="authorPhotoSize">
-            </div>
+          <div class="card-panel" id="bookNotFound">
+            <p class="textColor" id="alternateBookText"></p>
           </div>
         </div>
-        <div class="card-panel" id="authorNotFound">
-          <p class="textColor" id="alternateAuthorText"></p>
+        <div class="col s3">
+          <div class="card-panel" id="authorCard">
+            <h4 class="textColor">Author Info</h4>
+            <div class="row">
+              <div class="textColor" id="authorBio"></div>
+              <div class="center-align">
+                <img src="" id="authorPhoto" class="authorPhotoSize">
+              </div>
+            </div>
+          </div>
+          <div class="card-panel" id="authorNotFound">
+            <p class="textColor" id="alternateAuthorText"></p>
+          </div>
         </div>
-      </div>
-      <div class="col s3">
-        ​
-        <div class="card-panel" id="eventCard">
-          <!--Author Event Results-->
-          <!-- Dropdown Trigger -->
-          <a class="dropdown-trigger2 btn" href="#" data-target="authorEvents"><i
-              class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+        <div class="col s3">
           ​
-          <!-- Dropdown Structure -->
-          <ul id="authorEvents" class="dropdown-content">
-          </ul>
-          <br>
+          <div class="card-panel" id="eventCard">
+            <!--Author Event Results-->
+            <!-- Dropdown Trigger -->
+            <a class="dropdown-trigger2 btn buttonColor" href="#" data-target="authorEvents"><i
+                class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+            ​
+            <!-- Dropdown Structure -->
+            <ul id="authorEvents" class="dropdown-content collection">
+            </ul>
+            <br>
 
-          <h4>Upcoming Events</h4>
-          <div class="row">
-            <div class="input-field col s12">
-              <input disabled id="eventLocation" type="text" class="validate" />
-              <label for="disabled">Location</label>
-            </div>
-            <!-- <div class="input-field col s12"> -->
-            <!-- <input disabled id="eventDesc" type="text" class="validate" /> -->
-            <!-- <label for="disabled">Description</label> -->
-            <!-- </div> -->
-            <h6 class="textColor">Description</h6>
-            <p class="textColor" id="eventDescription"></p>
-            <hr>
-            <div class="input-field col s12">
-              <input disabled id="eventDate" type="text" class="validate" />
-              <label for="disabled">Date</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="eventTime" type="text" class="validate" />
-              <label for="disabled">Time</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="eventAddress" type="text" class="validate" />
-              <label for="disabled">Address</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="eventCity" type="text" class="validate" />
-              <label for="disabled">City</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="eventState" type="text" class="validate" />
-              <label for="disabled">State</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="eventZip" type="text" class="validate" />
-              <label for="disabled">Zip</label>
-            </div>
-          </div>
-        </div>
-        <div class="card-panel" id="eventNotFound">
-          <p id="alternateEventText"></p>
-        </div>
-      </div>
-      <div class="col s3">
-        <div class="card-panel" id="movieCard">
-          <h4>Movie Info</h4>
-          <div class="row">
-            <div class="input-field col s12">
-              <input disabled id="movieTitle" type="text" class="validate" />
-              <label for="disabled">Title of Movie</label>
-            </div>
-            <!-- <div class="input-field col s12"> -->
-            <!-- <input disabled id="moviePlot" type="text" class="validate" /> -->
-            <!-- <label for="disabled">Plot</label> -->
-            <!-- </div> -->
-            <h6>Plot</h6>
-            <p id="moviePlot"></p>
-            <hr>
-            <div class="input-field col s12">
-              <input disabled id="movieRated" type="text" class="validate" />
-              <label for="disabled">Rated</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="movieRuntime" type="text" class="validate" />
-              <label for="disabled">Running Time</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="movieGenre" type="text" class="validate" />
-              <label for="disabled">Genre</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="movieReleased" type="text" class="validate" />
-              <label for="disabled">Release Date</label>
-            </div>
-            <div class="input-field col s12 center-align">
-              <img src="" id="moviePoster" class="moviePosterSize">
-              <p id="notAvailableText"></p>
+            <h4 class="textColor">Upcoming Events</h4>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled id="eventLocation" type="text" class="validate" />
+                <label for="disabled">Location</label>
+              </div>
+              <!-- <div class="input-field col s12"> -->
+              <!-- <input disabled id="eventDesc" type="text" class="validate" /> -->
+              <!-- <label for="disabled">Description</label> -->
+              <!-- </div> -->
+              <h6 class="textColor">Description</h6>
+              <p class="textColor" id="eventDescription"></p>
+              <hr>
+              <div class="input-field col s12">
+                <input disabled id="eventDate" type="text" class="validate" />
+                <label for="disabled">Date</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="eventTime" type="text" class="validate" />
+                <label for="disabled">Time</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="eventAddress" type="text" class="validate" />
+                <label for="disabled">Address</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="eventCity" type="text" class="validate" />
+                <label for="disabled">City</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="eventState" type="text" class="validate" />
+                <label for="disabled">State</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="eventZip" type="text" class="validate" />
+                <label for="disabled">Zip</label>
+              </div>
             </div>
           </div>
+          <div class="card-panel" id="eventNotFound">
+            <p class="textColor" id="alternateEventText"></p>
+          </div>
         </div>
-        <div class="card-panel" id="movieNotFound">
-          <p id="alternateMovieText"></p>
+        <div class="col s3">
+          <div class="card-panel" id="movieCard">
+            <h4 class="textColor">Movie Info</h4>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled id="movieTitle" type="text" class="validate" />
+                <label for="disabled">Title of Movie</label>
+              </div>
+              <!-- <div class="input-field col s12"> -->
+              <!-- <input disabled id="moviePlot" type="text" class="validate" /> -->
+              <!-- <label for="disabled">Plot</label> -->
+              <!-- </div> -->
+              <h6 class="textColor">Plot</h6>
+              <p class="textColor" id="moviePlot"></p>
+              <hr>
+              <div class="input-field col s12">
+                <input disabled id="movieRated" type="text" class="validate" />
+                <label for="disabled">Rated</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="movieRuntime" type="text" class="validate" />
+                <label for="disabled">Running Time</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="movieGenre" type="text" class="validate" />
+                <label for="disabled">Genre</label>
+              </div>
+              <div class="input-field col s12">
+                <input disabled id="movieReleased" type="text" class="validate" />
+                <label for="disabled">Release Date</label>
+              </div>
+              <div class="input-field col s12 center-align">
+                <img src="" id="moviePoster" class="moviePosterSize">
+                <p id="notAvailableText"></p>
+              </div>
+            </div>
+          </div>
+          <div class="card-panel" id="movieNotFound">
+            <p class="textColor" id="alternateMovieText"></p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>  ​
-  ​
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-  <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
-  <script>
-    dayjs.extend(window.dayjs_plugin_utc)
-  </script>
-  <script src="./assets/js/script.js"></script>
+    </div> ​
+    ​
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+    <script>
+      dayjs.extend(window.dayjs_plugin_utc)
+    </script>
+    <script src="./assets/js/script.js"></script>
 </body>
 ​
 
