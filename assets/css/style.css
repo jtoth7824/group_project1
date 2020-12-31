@@ -19,15 +19,16 @@
   margin-bottom: 10px;
 }
 
+.cardHeight {
+  height: 1000px;
+}
+
 .collection a.collection-item {
   background-color: #DCCEC3;
-  color: rgb(78, 24, 29) !important;
-/*  line-height: 1.5rem;*/
-/*  margin: 0;*/
+  color: rgb(78, 24, 29);
   white-space: normal;
   padding: 14px 16px;
   border-bottom: 1px solid rgb(78, 24, 29) !important;
-  top: -35px;
 }
 
 .collection a.collection-item:not(.active):hover {
@@ -37,8 +38,6 @@
 
 .dropdown-content {
 	border-radius: 20px;
-  background-color: #DCCEC3;
-  color: rgb(78, 24, 29);
   margin: 0;
   display: none;
   min-width: 200px; /* Changed this to accomodate content width */
@@ -232,7 +231,7 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   padding: 24px;
   margin: .5rem 0 1rem 0;
   border-radius: 20px;
-  border-color: lightyellow;
+  border-color: #DCCEC3;
   border-style: double;
 /*  background-color: transparent;*/
   background-color:rgb(78, 24, 29);
@@ -244,51 +243,27 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   display: none;
 }
 
-<<<<<<< HEAD
+/*#dropdown1 {
+  top: auto !important;
+  height: 500px;
+}
+*/
+
+.cardHeight {
+  height: 1000px;
+}
+
 /* setting up background image to cover entire page */
 body {
   background-image: url("../images/library-2507902_1920.jpg");
   background-attachment: fixed;
 }
 
-@media screen and (max-width: 860px) {
-  .nav-wrapper a {
-    font-size: medium;
-    margin: 0px;
-  }
-  .container {
-    width: 180px;
-    font-size: small;
-  }
-  .row .s3 {
-    min-width: 180px;
-    font-size: small;
-  }
-  #searchBtn {
-    text-align: center;
-    font-size: small;
-  }
-  h1,
-  .bookTitle,
-  .firstName,
-  .lastName {
-    font-size: medium;
-    width: 200px;
-  }
-=======
->>>>>>> 964f87aacf58d7bc169d8fd848f16fc034f0d7b7
-
-
-#dropdown1 {
-  top: auto !important;
-  height: 500px;
-}
-
-@media screen and (max-width: 760px){
+/*@media screen and (max-width: 760px){
   
   
   .nav-wrapper a{
  font-size: medium;
  margin: 0px;    
 
-  }}
+  }}*/
