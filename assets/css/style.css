@@ -244,6 +244,7 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   display: none;
 }
 
+<<<<<<< HEAD
 /* setting up background image to cover entire page */
 body {
   background-image: url("../images/library-2507902_1920.jpg");
@@ -274,29 +275,20 @@ body {
     font-size: medium;
     width: 200px;
   }
+=======
+>>>>>>> 964f87aacf58d7bc169d8fd848f16fc034f0d7b7
 
-  .container .row {
-    width: 100%;
-  }
-  .container .row .col {
-    min-width: 160px;
-    font-size: small;
-  }
-  h4,
-  .input-field {
-    font-size: small;
-  }
 
-  #disabled {
-    font-size: small;
-    width: 80%;
-  }
-
-  .card-panel {
-    font-size: small;
-    width: 200px;
-  }
+#dropdown1 {
+  top: auto !important;
+  height: 500px;
 }
 
-@media screen and (max-width: 1000px) {
-}
+@media screen and (max-width: 760px){
+  
+  
+  .nav-wrapper a{
+ font-size: medium;
+ margin: 0px;    
+
+  }}
