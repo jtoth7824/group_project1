@@ -48,16 +48,15 @@
     <div class="row">
       <div class="col s12 m6 l3 textColor">
         <div class="card-panel cardHeight" id="bookCard">
-
-          <!-- Dropdown Trigger-->
-          <a class="dropdown-trigger btn buttonColor" href="#" data-target="dropdown1"><i
-              class="material-icons left">arrow_drop_down_circle</i>Book Results</a>
-          <!-- Dropdown Structure -->
-          <ul id="dropdown1" class="dropdown-content collection">
-          </ul>
-
-          <br>
-          <h4 class="textColor">Book Info</h4>
+          <h5 class="textColor">Book Info</h5>
+          <hr>
+                    <!-- Dropdown Trigger-->
+                    <a class="dropdown-trigger btn buttonColor" href="#" data-target="dropdown1"><i
+                      class="material-icons left">arrow_drop_down_circle</i>Book Results</a>
+                  <!-- Dropdown Structure -->
+                  <ul id="dropdown1" class="dropdown-content collection">
+                  </ul>
+                  <br>        
           <div class="row">
             <div class="input-field col s12">
               <input disabled id="title" type="text" class="validate textColor" />
@@ -91,12 +90,15 @@
           </div>
         </div>
         <div class="card-panel" id="bookNotFound">
+          <h5 class="textColor">Book Info</h5>
+          <hr>
           <p class="textColor" id="alternateBookText"></p>
         </div>
       </div>
       <div class="col s12 m6 l3">
         <div class="card-panel cardHeight" id="authorCard">
-          <h4 class="textColor">Author Info</h4>
+          <h5 class="textColor">Author Info</h5>
+          <hr>
           <div class="row">
             <div class="textColor" id="authorBio"></div>
             <div class="center-align">
@@ -105,23 +107,26 @@
           </div>
         </div>
         <div class="card-panel" id="authorNotFound">
+          <h5 class="textColor">Author Info</h5>
+          <hr>
           <p class="textColor" id="alternateAuthorText"></p>
         </div>
       </div>
       <div class="col s12 m6 l3">
 
         <div class="card-panel cardHeight" id="eventCard">
+          <h5 class="textColor">Upcoming Events</h5>
+          <hr>
           <!--Author Event Results-->
           <!-- Dropdown Trigger -->
           <a class="dropdown-trigger2 btn buttonColor" href="#" data-target="authorEvents"><i
-              class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+            class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
 
-          <!-- Dropdown Structure -->
-          <ul id="authorEvents" class="dropdown-content collection">
-          </ul>
-          <br>
+        <!-- Dropdown Structure -->
+        <ul id="authorEvents" class="dropdown-content collection">
+        </ul>
+        <br>
 
-          <h4 class="textColor">Upcoming Events</h4>
           <div class="row">
             <div class="input-field col s12">
               <input disabled id="eventLocation" type="text" class="validate" />
@@ -129,7 +134,7 @@
             </div>
             <h6 class="textColor">Description</h6>
             <p class="textColor" id="eventDescription"></p>
-            <hr>
+            <hr class="eventHR">
             <div class="input-field col s12">
               <input disabled id="eventDate" type="text" class="validate" />
               <label for="disabled">Date</label>
@@ -157,12 +162,15 @@
           </div>
         </div>
         <div class="card-panel" id="eventNotFound">
+          <h5 class="textColor">Upcoming Events</h5>
+          <hr>
           <p class="textColor" id="alternateEventText"></p>
         </div>
       </div>
       <div class="col s12 m6 l3">
         <div class="card-panel cardHeight" id="movieCard">
-          <h4 class="textColor">Movie Info</h4>
+          <h5 class="textColor">Movie Info</h5>
+          <hr>
           <div class="row">
             <div class="input-field col s12">
               <input disabled id="movieTitle" type="text" class="validate" />
@@ -194,6 +202,8 @@
           </div>
         </div>
         <div class="card-panel" id="movieNotFound">
+          <h5 class="textColor">Movie Info</h5>
+          <hr>
           <p class="textColor" id="alternateMovieText"></p>
         </div>
       </div>
