@@ -10,9 +10,22 @@
   color: rgb(78, 24, 29);
 }
 
-.dropdown-trigger {
+.dropdown-trigger, .dropdown-trigger2 {
   cursor: pointer;
   border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+h6 { 
+  margin: 0px 10px 10px 10px;
+}
+
+p {
+  margin: 0px 10px 0px 10px;
+}
+
+.eventHR {
+  margin: 10px;
 }
 
 .rowMargin {
@@ -228,7 +241,7 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   transition: -webkit-box-shadow .25s;
   transition: box-shadow .25s;
   transition: box-shadow .25s, -webkit-box-shadow .25s;
-  padding: 24px;
+  padding: 12px 24px;
   margin: .5rem 0 1rem 0;
   border-radius: 20px;
   border-color: #DCCEC3;
