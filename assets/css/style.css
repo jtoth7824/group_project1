@@ -110,6 +110,7 @@ textarea.materialize-textarea[readonly="readonly"] {
   color: rgb(78, 24, 29);
   background-color: #DCCEC3;
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  padding-left: 5px;
 }
 
 ::placeholder {
