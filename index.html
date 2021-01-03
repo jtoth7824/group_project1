@@ -10,23 +10,22 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cinema Library</title>
+  <title>Book/Cinema Library</title>
 </head>
 
 <body>
   <nav>
+    <!--navbar from materialize to put up project title-->
     <div class="nav-wrapper navColor">
-      <a href="#" class="brand-logo center"><i class="material-icons">book</i>Cinema Library</a>
+      <a href="#" class="brand-logo center"><i class="material-icons">book</i>Book/Cinema Library</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <!--<li><a href="">About</a></li>-->
-        <li><a href="">Contact</a></li>
-        <!--<li><a href="">JavaScript</a></li>-->
       </ul>
     </div>
   </nav>
 
   <div class="container">
     <br>
+    <!-- container to hold text inputs and search button to center on page-->
     <div class="container">
       <div class="row rowMargin">
         <div class="col s12 m3"></div>
@@ -36,8 +35,10 @@
         <div class="col s12 m3">
           <input class="textColorInput" placeholder="Author Last Name" name="Title" id="lastName" type="text">
         </div>
+        <!-- materialize button with wave effect and custom color-->
         <div class="col s12 m3">
-          <a class="waves-effect waves-blue btn buttonColor" id="searchBtn"><i class="material-icons left">search</i>Search</a>
+          <a class="waves-effect waves-blue btn buttonColor" id="searchBtn"><i
+              class="material-icons left">search</i>Search</a>
         </div>
         <div class="col s12 m3"></div>
       </div>
@@ -46,18 +47,20 @@
 
   <div class="container">
     <div class="row">
+      <!-- column in grid to hold the card panels for book, author, event and movie -->
       <div class="col s12 m6 l3 textColor">
         <div class="card-panel cardHeight" id="bookCard">
           <h5 class="textColor">Book Info</h5>
           <hr>
-                    <!-- Dropdown Trigger-->
-                    <a class="dropdown-trigger btn buttonColor" href="#" data-target="dropdown1"><i
-                      class="material-icons left">arrow_drop_down_circle</i>Book Results</a>
-                  <!-- Dropdown Structure -->
-                  <ul id="dropdown1" class="dropdown-content collection">
-                  </ul>
-                  <br>        
+          <!-- Dropdown Trigger-->
+          <a class="dropdown-trigger btn buttonColor" href="#" data-target="dropdown1"><i
+              class="material-icons left">arrow_drop_down_circle</i>Book Results</a>
+          <!-- Dropdown Structure holds contents of book titles populated from javascript -->
+          <ul id="dropdown1" class="dropdown-content collection">
+          </ul>
+          <br>
           <div class="row">
+            <!-- this row contains all the book input fields to display the book info -->
             <div class="input-field col s12">
               <input disabled id="title" type="text" class="validate textColor" />
               <label for="disabled">Title of Book</label>
@@ -82,6 +85,7 @@
               <input disabled id="isbn" type="text" class="validate textColor" />
               <label for="disabled">ISBN</label>
             </div>
+            <!-- image for the book cover if available -->
             <div class="input-field col s12">
               <div class="center-align">
                 <img class="responsive-img bookCoverSize" src="" id="bookCover">
@@ -89,23 +93,28 @@
             </div>
           </div>
         </div>
+        <!-- if book isn't found upon author search, then the below is displayed-->
         <div class="card-panel" id="bookNotFound">
           <h5 class="textColor">Book Info</h5>
           <hr>
           <p class="textColor" id="alternateBookText"></p>
         </div>
       </div>
+      <!-- card panel to display the author info -->
       <div class="col s12 m6 l3">
         <div class="card-panel cardHeight" id="authorCard">
           <h5 class="textColor">Author Info</h5>
           <hr>
           <div class="row">
+            <!-- row that contains all the author info -->
             <div class="textColor" id="authorBio"></div>
+            <!-- image for author photo if exists -->
             <div class="center-align">
               <img src="" id="authorPhoto" class="authorPhotoSize">
             </div>
           </div>
         </div>
+        <!-- if author isn't found upon search, then the below is displayed -->
         <div class="card-panel" id="authorNotFound">
           <h5 class="textColor">Author Info</h5>
           <hr>
@@ -113,21 +122,22 @@
         </div>
       </div>
       <div class="col s12 m6 l3">
-
+        <!-- card panel to display the event info -->
         <div class="card-panel cardHeight" id="eventCard">
           <h5 class="textColor">Upcoming Events</h5>
           <hr>
           <!--Author Event Results-->
           <!-- Dropdown Trigger -->
           <a class="dropdown-trigger2 btn buttonColor" href="#" data-target="authorEvents"><i
-            class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
+              class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
 
-        <!-- Dropdown Structure -->
-        <ul id="authorEvents" class="dropdown-content collection">
-        </ul>
-        <br>
+          <!-- Dropdown Structure contents hold all the author events if any -->
+          <ul id="authorEvents" class="dropdown-content collection">
+          </ul>
+          <br>
 
           <div class="row">
+            <!-- this row contains all the input fields for event information -->
             <div class="input-field col s12">
               <input disabled id="eventLocation" type="text" class="validate" />
               <label for="disabled">Location</label>
@@ -161,17 +171,20 @@
             </div>
           </div>
         </div>
+        <!-- if no author events found for book, then the following is displayed -->
         <div class="card-panel" id="eventNotFound">
           <h5 class="textColor">Upcoming Events</h5>
           <hr>
           <p class="textColor" id="alternateEventText"></p>
         </div>
       </div>
+      <!-- card panel to display the movie info -->
       <div class="col s12 m6 l3">
         <div class="card-panel cardHeight" id="movieCard">
           <h5 class="textColor">Movie Info</h5>
           <hr>
           <div class="row">
+            <!-- this row contains all the input fields to display the movie info -->
             <div class="input-field col s12">
               <input disabled id="movieTitle" type="text" class="validate" />
               <label for="disabled">Title of Movie</label>
@@ -195,12 +208,14 @@
               <input disabled id="movieReleased" type="text" class="validate" />
               <label for="disabled">Release Date</label>
             </div>
+            <!-- image for movie poster if available for matching movie based upon book -->
             <div class="input-field col s12 center-align">
               <img src="" id="moviePoster" class="moviePosterSize">
               <p class="textColor" id="notAvailableText"></p>
             </div>
           </div>
         </div>
+        <!-- if no movie info returned, then the following is displayed instead -->
         <div class="card-panel" id="movieNotFound">
           <h5 class="textColor">Movie Info</h5>
           <hr>
@@ -211,6 +226,7 @@
   </div>
 
   <!-- Compiled and minified JavaScript -->
+  <!-- jquery, materialize, dayjs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
