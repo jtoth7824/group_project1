@@ -193,196 +193,6 @@ init();
 $(".dropdown-trigger").dropdown();
 $(".dropdown-trigger2").dropdown();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Create ajax calls to retrieve movie info
-
-/*var movieURL = "https://...";
-$.ajax({
-    url: URL,
-    method: "GET",
-}).then(function(response){
-
-    if (response.error === " NOT FOUND"){
-            //
-    }
-    else {
-    
-
-        //movie title
-        var mTitle = response.title;
-
-        //plot
-        var mplot = response.plot;
-
-
-        //rating
-        var mRating = response.rating;
-        
-
-
-        //runningTime
-        var mTime = response.runningTime;
-
-        //genre
-        var mgenre = response.genre;
-
-
-
-        //releaseDate
-        var mDate = response.releaseDate;
-
-
-
-    }
-
-}
-)
-
-
-
-//Create ajax calls to retrieve book info
-
-$.ajax({
-    url: bookURL,
-    method: "GET",
-  }).then(function (response1) {
-
-    if (response1.items === 0){
-
-
-
-    }
-
-
-
-
-    
-
-    else {
-
-
-
-
-    }
-
-
-  })
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // event listener for Author Search button
 $("#searchBtn").on("click", function () {
   /* save user entered info to searchInfo object */
@@ -418,18 +228,6 @@ $("#searchBtn").on("click", function () {
   getAuthorInfo();
 
 });
-
-// function to build the api call to retrieve author content - bio and photo
-function buildAuthorContentQueryURL(forcedauthorid) {
-  var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
-  queryURL = queryURL + forcedauthorid + "?";
-  var queryParams = {
-    api_key: "tfugk99hpk2nt8sm3ve3peqy",
-  };
-  // parameter to restrict returned results to English language
-  queryParams.preferLanguage = "E";
-  return queryURL + $.param(queryParams);
-}
 
 // function to build the api call to retrieve book titles based upon author id
 function buildAuthorTitlesQueryURL(forcedauthorid) {
@@ -643,7 +441,13 @@ function getEventInfo() {
         } else {
           $("#eventZip").val("N/A");
         }
-        $("#eventTime").val(response.data.events[0].eventTime);
+        // check if there is an event time returned otherwise display N/A
+        if (!(response.data.events[0].eventTime === null)) {
+          $("#eventTime").val(response.data.events[0].eventTime);
+        }
+        else {
+          $("#eventTime").val("N/A");
+        }
         // the following needs to be called to shift materialize css label out of the input field
         M.updateTextFields();
       }

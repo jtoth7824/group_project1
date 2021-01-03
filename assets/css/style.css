@@ -1,41 +1,46 @@
-.solidDivider {
-  color: rgb(78, 24, 29);
-}
-
+/* change color of text in panels */
 .textColor {
   color: white;
 }
 
+/* change color of text placeholders in search fields */
 .textColorInput {
   color: rgb(78, 24, 29);
 }
 
+/* round corners on dropdown buttons and provide a bit of margin at bottom */
 .dropdown-trigger, .dropdown-trigger2 {
   cursor: pointer;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
+/* remove margin from top of h6 */
 h6 { 
   margin: 0px 10px 10px 10px;
 }
 
+/* remove margin from top and bottom of p */
 p {
   margin: 0px 10px 0px 10px;
 }
 
+/* add margin to constrain the ruler tag */
 .eventHR {
   margin: 10px;
 }
 
+/* provide some margin at bottom of row */
 .rowMargin {
   margin-bottom: 10px;
 }
 
+/* make card panel height fixed so that columns wrap correctly */
 .cardHeight {
   height: 1000px;
 }
 
+/* override materialize styling to change color, padding and border bottom */
 .collection a.collection-item {
   background-color: #DCCEC3;
   color: rgb(78, 24, 29);
@@ -44,11 +49,13 @@ p {
   border-bottom: 1px solid rgb(78, 24, 29) !important;
 }
 
+/* override materialize styling to change padding and color from the teal color */
 .collection a.collection-item:not(.active):hover {
   background-color: #ddd;
   padding: 14px 16px;
 }
 
+/* round the corners of drop down content, add scroll bar and adjust content to be below the button */
 .dropdown-content {
 	border-radius: 20px;
   margin: 0;
@@ -63,24 +70,28 @@ p {
   top: -35px;
 }
 
+/* adjust the image size for movie poster so it fits within panel */
 .moviePosterSize {
   max-width: 100%;
   height: auto;
   max-height: 260px;
 }
 
+/* adjust the image size for author photo so it fits within panel */
 .authorPhotoSize {
   max-width: 100%;
   height: auto;
   max-height: 260px;
 }
 
+/* adjust the image size for book cover so it fits within panel */
 .bookCoverSize {
   max-width: 100%;
   height: auto;
   max-height: 260px;
 }
 
+/* override materialize styling to change color and padding for text fields */
 input:not([type]):disabled,
 input:not([type])[readonly="readonly"],
 input[type="text"]:not(.browser-default):disabled,
@@ -113,19 +124,24 @@ textarea.materialize-textarea[readonly="readonly"] {
   padding-left: 5px;
 }
 
+/* change color for the placeholder text */
 ::placeholder {
   color: rgb(78, 24, 29);
+  padding-left: 5px;
 }
 
+/* change the color of navbar */
 .navColor {
   background-color: rgb(78, 24, 29);
 }
 
+/* custom color change for buttons and rounding the corners */
 .buttonColor {
   background-color: rgb(35, 63, 112);
   border-radius: 10px;
 }
 
+/* change color of text input fields and round corners */
 input:not([type]),
 input[type=text]:not(.browser-default),
 input[type=password]:not(.browser-default),
@@ -139,9 +155,7 @@ input[type=tel]:not(.browser-default),
 input[type=number]:not(.browser-default),
 input[type=search]:not(.browser-default),
 textarea.materialize-textarea {
-/*  background-color: rgb(78, 24, 29);*/
 background-color: #DCCEC3;
-/*  background-color: #c99868 ;*/
   border: none;
   border-bottom: 1px solid #9e9e9e;
   border-radius: 7px;
@@ -150,7 +164,7 @@ background-color: #DCCEC3;
   width: 100%;
   font-size: 16px;
   margin: 0 0 8px 0;
-  padding: 0;
+  padding: 5px;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-box-sizing: content-box;
@@ -167,6 +181,7 @@ input:focus {
   box-shadow: none !important;
 }
 
+/* change color of disabled text fields */
 input:not([type]):disabled+label,
 input:not([type])[readonly="readonly"]+label,
 input[type=text]:not(.browser-default):disabled+label,
@@ -194,9 +209,9 @@ input[type=search]:not(.browser-default)[readonly="readonly"]+label,
 textarea.materialize-textarea:disabled+label,
 textarea.materialize-textarea[readonly="readonly"]+label {
   color: #DCCEC3;
-/*    color: black;*/
 }
 
+/* change color of input field labels and adjust the top position so they are outside the input field */
 .input-field>label {
   color: white;
   position: absolute;
@@ -215,28 +230,32 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   transform: translateY(12px);
 }
 
+/* custom color for when button is visited */
 .btn:visited {
   background-color: rgb(35, 63, 112);
 }
 
+/* custom color for when button is hovered over */
 .btn:hover {
   background-color: rgb(35, 63, 112);
 }
 
+/* custom color for when button is active */
 .btn:active {
   background-color: rgb(35, 63, 112);
 }
 
+/* custom color for when button receives/loses focus */
 .btn:focus {
   background-color: rgb(35, 63, 112);
 }
 
+/* custom color for materialize wave effect */
 .waves-effect.waves-blue .waves-ripple {
-  /* The alpha value allows the text and background color
-    of the button to still show through. */
   background-color: rgba(67, 108, 124, 0.65);
 }
 
+/* override materialize styling for panels to provide double border, rounded corners and color changes */
 .card-panel {
   -webkit-transition: -webkit-box-shadow .25s;
   transition: -webkit-box-shadow .25s;
@@ -247,7 +266,6 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   border-radius: 20px;
   border-color: #DCCEC3;
   border-style: double;
-/*  background-color: transparent;*/
   background-color:rgb(78, 24, 29);
   opacity: 100%;
 }
@@ -257,27 +275,8 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   display: none;
 }
 
-/*#dropdown1 {
-  top: auto !important;
-  height: 500px;
-}
-*/
-
-.cardHeight {
-  height: 1000px;
-}
-
 /* setting up background image to cover entire page */
 body {
   background-image: url("../images/library-2507902_1920.jpg");
   background-attachment: fixed;
 }
-
-/*@media screen and (max-width: 760px){
-  
-  
-  .nav-wrapper a{
- font-size: medium;
- margin: 0px;    
-
-  }}*/
