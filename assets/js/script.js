@@ -165,14 +165,18 @@ function init() {
   // Parsing the JSON string to an object
   var savedInfo = JSON.parse(localStorage.getItem("SearchInfo"));
 
+  // set these variables to true for when app initially runs vs event listener
+  startup = true;
+  startupEvent = true;
   // If events were not retrieved from localStorage, update local storage to searchInfo object
   if (savedInfo === null) {
     localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
+    // calls to display the no info found panels
+    getAuthorInfo();
+    getBookInfo();
+    getEventInfo();
   }
   else {
-    // set these variables to true when local storage info exists
-    startup = true;
-    startupEvent = true;
     // save the retrieved local storage data
     searchInfo = savedInfo;
     // calls to clear all the field info
@@ -200,15 +204,13 @@ $("#searchBtn").on("click", function () {
   searchInfo.author.lastName = $("#lastName").val().trim();
   /* save user entered search criteria to local storage */
   saveSearchInfo();
-  /*clear search terms in input boxes */
-  $("#firstName").val("");
-  $("#lastName").val("");
   //empty dropdown list contents
   $("#dropdown1").empty();
   $("authorEvents").empty();
   // set this info to empty string before api data returned
   searchInfo.bookTitle = "";
   searchInfo.bookisbn = "";
+  searchInfo.authorID = "";
   searchInfo.authorEventId = "";
   // set/remove hidden class appropriately for HTML elements
   $("#movieCard").addClass("hidden");
@@ -287,7 +289,15 @@ function getAuthorInfo() {
           $("#authorBio").html(response.data.results[0].authorBio);
         }
         // set author photo url
-        $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
+               if (response.data.results[0].authorPhotoUrl === null) {
+                    $("#authorPhoto").addClass("hidden");
+                    $("#noPhoto").removeClass("hidden");
+                }
+                else {
+                    $("#noPhoto").addClass("hidden");
+                    $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
+                    $("authorPhotoUrl").removeClass("hidden");
+                }
         searchInfo.authorID = response.data.results[0].authorId;
         var url2;
         // build query url to retrieve book titles based upon author ID
@@ -318,10 +328,15 @@ function getAuthorInfo() {
             $("#bookCard").addClass("hidden");
             $("#bookNotFound").removeClass("hidden");
             $("#alternateBookText").text("No book found that matched the author selected.");
+            $("#authorCard").addClass("hidden");
+            $("#authorNotFound").removeClass("hidden");
+            $("#alternateAuthorText").text("No author info found that matched the author searched.");            
           }
         });
       } else {
         // error condition if no author selected  
+        searchInfo.authorID = "";
+        saveSearchInfo();
         $("#bookCard").addClass("hidden");
         $("#bookNotFound").removeClass("hidden");
         $("#alternateBookText").text("No book found that matched the author selected.");
