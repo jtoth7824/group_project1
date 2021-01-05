@@ -149,7 +149,7 @@ function displayMovieInfo() {
           $("#moviePoster").attr("src", response.Poster);
         }
       }
-    })
+    });
     // no book title provided so no api call can be made
   } else {
     $("#movieCard").addClass("hidden");
@@ -165,14 +165,18 @@ function init() {
   // Parsing the JSON string to an object
   var savedInfo = JSON.parse(localStorage.getItem("SearchInfo"));
 
+  // set these variables to true for when app initially runs vs event listener
+  startup = true;
+  startupEvent = true;
   // If events were not retrieved from localStorage, update local storage to searchInfo object
   if (savedInfo === null) {
     localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
+    // calls to display the no info found panels
+    getAuthorInfo();
+    getBookInfo();
+    getEventInfo();
   }
   else {
-    // set these variables to true when local storage info exists
-    startup = true;
-    startupEvent = true;
     // save the retrieved local storage data
     searchInfo = savedInfo;
     // calls to clear all the field info
@@ -200,15 +204,13 @@ $("#searchBtn").on("click", function () {
   searchInfo.author.lastName = $("#lastName").val().trim();
   /* save user entered search criteria to local storage */
   saveSearchInfo();
-  /*clear search terms in input boxes */
-  $("#firstName").val("");
-  $("#lastName").val("");
   //empty dropdown list contents
   $("#dropdown1").empty();
   $("authorEvents").empty();
   // set this info to empty string before api data returned
   searchInfo.bookTitle = "";
   searchInfo.bookisbn = "";
+  searchInfo.authorID = "";
   searchInfo.authorEventId = "";
   // set/remove hidden class appropriately for HTML elements
   $("#movieCard").addClass("hidden");
@@ -287,7 +289,15 @@ function getAuthorInfo() {
           $("#authorBio").html(response.data.results[0].authorBio);
         }
         // set author photo url
-        $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
+               if (response.data.results[0].authorPhotoUrl === null) {
+                    $("#authorPhoto").addClass("hidden");
+                    $("#noPhoto").removeClass("hidden");
+                }
+                else {
+                    $("#noPhoto").addClass("hidden");
+                    $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
+                    $("authorPhotoUrl").removeClass("hidden");
+                }
         searchInfo.authorID = response.data.results[0].authorId;
         var url2;
         // build query url to retrieve book titles based upon author ID
@@ -318,10 +328,15 @@ function getAuthorInfo() {
             $("#bookCard").addClass("hidden");
             $("#bookNotFound").removeClass("hidden");
             $("#alternateBookText").text("No book found that matched the author selected.");
+            $("#authorCard").addClass("hidden");
+            $("#authorNotFound").removeClass("hidden");
+            $("#alternateAuthorText").text("No author info found that matched the author searched.");            
           }
         });
       } else {
         // error condition if no author selected  
+        searchInfo.authorID = "";
+        saveSearchInfo();
         $("#bookCard").addClass("hidden");
         $("#bookNotFound").removeClass("hidden");
         $("#alternateBookText").text("No book found that matched the author selected.");
@@ -381,7 +396,7 @@ $(document).on("click", ".event-list-item", getEventInfo);
 
 /* populate author event info based upon which event user selected */
 function getEventInfo() {
-
+var whichEvent;
   // check if startupEvent is true
   if (startupEvent) {
     // startupEvent true means data existed in local storage for event
@@ -392,7 +407,7 @@ function getEventInfo() {
   } else {
     // startupEvent false means data did NOT exist in local storage for event
     //  therefore need to retrieve new event ID based upon user selection to use in api call
-    var whichEvent = $(this).attr("eventId");
+    whichEvent = $(this).attr("eventId");
     searchInfo.authorEventId = $(this).attr("eventId");
     // save newly selected event ID to local storage
     saveSearchInfo();
@@ -409,7 +424,7 @@ function getEventInfo() {
       url: url,
       success: function (response) {
         // populate HTML fields with returned JSON response data
-        $("#eventLocation").val(response.data.events[0].location)
+        $("#eventLocation").val(response.data.events[0].location);
         //  check if there is an event description returned otherwise display N/A
         if (!(response.data.events[0].description === null)) {
           $("#eventDescription").text(response.data.events[0].description);
@@ -462,6 +477,7 @@ function getEventInfo() {
 
 // function to retrieve book info from api call
 function getBookInfo() {
+  var whichBook;
   var url3;
   // check if data exists at startup for book found in local storage
   if (startup) {
@@ -470,7 +486,7 @@ function getBookInfo() {
     startup = false;
   } else {
     // book info didn't exist in local storage need to grab the currently selected book to use in api call
-    var whichBook = $(this).attr("isbn");
+    whichBook = $(this).attr("isbn");
     searchInfo.bookisbn = $(this).attr("isbn");
     // save the selected book info to local storage
     saveSearchInfo();
@@ -512,7 +528,7 @@ function getBookInfo() {
         displayMovieInfo();
 
         // build query URL to retrieve author event info based upon book ISBN
-        url4 = buildEventQueryURL(searchInfo.authorID, response.data.titles[0].isbn);
+        var url4 = buildEventQueryURL(searchInfo.authorID, response.data.titles[0].isbn);
         console.log("url4 = " + url4);
         /* api call to retrieve author events to populate dropdown list */
         $.ajax({

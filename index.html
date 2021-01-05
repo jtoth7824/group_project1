@@ -28,19 +28,19 @@
     <!-- container to hold text inputs and search button to center on page-->
     <div class="container">
       <div class="row rowMargin">
-        <div class="col s12 m3"></div>
-        <div class="col s12 m3">
+         <!-- <div class="col s12 m3"></div> -->
+        <div class="col s12 m4">
           <input class="textColorInput" placeholder="Author First Name" name="Title" id="firstName" type="text">
         </div>
-        <div class="col s12 m3">
+        <div class="col s12 m4">
           <input class="textColorInput" placeholder="Author Last Name" name="Title" id="lastName" type="text">
         </div>
         <!-- materialize button with wave effect and custom color-->
-        <div class="col s12 m3">
+        <div class="col s12 m4">
           <a class="waves-effect waves-blue btn buttonColor" id="searchBtn"><i
               class="material-icons left">search</i>Search</a>
         </div>
-        <div class="col s12 m3"></div>
+         <!-- <div class="col s12 m3"></div> -->
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@
           <h5 class="textColor">Book Info</h5>
           <hr>
           <!-- Dropdown Trigger-->
-          <a class="dropdown-trigger btn buttonColor" href="#" data-target="dropdown1"><i
+          <a class="dropdown-trigger btn buttonColor bookBtn" href="#" data-target="dropdown1"><i
               class="material-icons left">arrow_drop_down_circle</i>Book Results</a>
           <!-- Dropdown Structure holds contents of book titles populated from javascript -->
           <ul id="dropdown1" class="dropdown-content collection">
@@ -88,7 +88,7 @@
             <!-- image for the book cover if available -->
             <div class="input-field col s12">
               <div class="center-align">
-                <img class="responsive-img bookCoverSize" src="" id="bookCover">
+                <img class="responsive-img bookCoverSize" alt="book cover art" src="" id="bookCover">
               </div>
             </div>
           </div>
@@ -110,7 +110,8 @@
             <div class="textColor" id="authorBio"></div>
             <!-- image for author photo if exists -->
             <div class="center-align">
-              <img src="" id="authorPhoto" class="authorPhotoSize">
+              <img src="" id="authorPhoto" class="authorPhotoSize" alt="author photo">
+              <p class="textColor hidden" id="noPhoto">No author photo available.</p>
             </div>
           </div>
         </div>
@@ -128,7 +129,7 @@
           <hr>
           <!--Author Event Results-->
           <!-- Dropdown Trigger -->
-          <a class="dropdown-trigger2 btn buttonColor" href="#" data-target="authorEvents"><i
+          <a class="dropdown-trigger2 btn buttonColor eventBtn" href="#" data-target="authorEvents"><i
               class="material-icons left">arrow_drop_down_circle</i>Author Events</a>
 
           <!-- Dropdown Structure contents hold all the author events if any -->
@@ -210,7 +211,7 @@
             </div>
             <!-- image for movie poster if available for matching movie based upon book -->
             <div class="input-field col s12 center-align">
-              <img src="" id="moviePoster" class="moviePosterSize">
+              <img src="" id="moviePoster" class="moviePosterSize" alt="movie poster">
               <p class="textColor" id="notAvailableText"></p>
             </div>
           </div>

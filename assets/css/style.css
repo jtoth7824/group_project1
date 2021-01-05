@@ -280,3 +280,50 @@ body {
   background-image: url("../images/library-2507902_1920.jpg");
   background-attachment: fixed;
 }
+
+i.left {
+  float: left;
+  margin-right: 5px;
+}
+
+@media only screen and (min-width: 994px) {
+  .bookBtn, .eventBtn {
+    font-size: 0.5vw;
+    padding: 0 2px;
+  }
+}
+
+@media only screen and (min-width: 1200) {
+.bookBtn, .eventBtn {
+  font-size: 0.75vw;
+  padding: 0 5px;
+}
+}
+
+@media only screen and (min-width: 1390px) {
+  .bookBtn, .eventBtn {
+    font-size: 14px;
+    padding: 0 5px;
+  }
+}
+
+@media only screen and (min-width: 0px) {
+  nav .brand-logo {
+    font-size: 4vw;
+    padding: 0;
+  }
+}
+
+@media only screen and (min-width: 620px) {
+  nav .brand-logo {
+    font-size: 3.5vw;
+    padding: 0;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  nav .brand-logo {
+    font-size: 2.1vw;
+    padding: 0;
+  }
+}

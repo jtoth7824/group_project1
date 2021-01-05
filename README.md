@@ -68,14 +68,12 @@ Please email any of the team members for further information
 <div>jQuery</div>
 <div>Javascript</div>
 <div>Local Storage</div>
+<div>HTML</div>
+<div>CSS</div>
 
 # APIs utilized
 
 <div>Random House publishing, OMBDB api, openlibrary API, dayjs</div>
-
-# Project Description:
-
-Book site where user can search by author name or book title and retrieve information about author or the book. This could include items such as sale date, author bio, book cover, page count, usa pricing info. The author is then searched upon if there is any current author event and information about the author event is displayed. The book title is searched behind the scenes for any related movies based upon that book title. The movie info is then displayed along with possible movie poster.
 
 # Team members and responsibilities:
 
