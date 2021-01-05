@@ -38,6 +38,7 @@ p {
 /* make card panel height fixed so that columns wrap correctly */
 .cardHeight {
   height: 1000px;
+  overflow: scroll;
 }
 
 /* override materialize styling to change color, padding and border bottom */
