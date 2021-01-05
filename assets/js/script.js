@@ -149,7 +149,7 @@ function displayMovieInfo() {
           $("#moviePoster").attr("src", response.Poster);
         }
       }
-    })
+    });
     // no book title provided so no api call can be made
   } else {
     $("#movieCard").addClass("hidden");
@@ -396,7 +396,7 @@ $(document).on("click", ".event-list-item", getEventInfo);
 
 /* populate author event info based upon which event user selected */
 function getEventInfo() {
-
+var whichEvent;
   // check if startupEvent is true
   if (startupEvent) {
     // startupEvent true means data existed in local storage for event
@@ -407,7 +407,7 @@ function getEventInfo() {
   } else {
     // startupEvent false means data did NOT exist in local storage for event
     //  therefore need to retrieve new event ID based upon user selection to use in api call
-    var whichEvent = $(this).attr("eventId");
+    whichEvent = $(this).attr("eventId");
     searchInfo.authorEventId = $(this).attr("eventId");
     // save newly selected event ID to local storage
     saveSearchInfo();
@@ -424,7 +424,7 @@ function getEventInfo() {
       url: url,
       success: function (response) {
         // populate HTML fields with returned JSON response data
-        $("#eventLocation").val(response.data.events[0].location)
+        $("#eventLocation").val(response.data.events[0].location);
         //  check if there is an event description returned otherwise display N/A
         if (!(response.data.events[0].description === null)) {
           $("#eventDescription").text(response.data.events[0].description);
@@ -477,6 +477,7 @@ function getEventInfo() {
 
 // function to retrieve book info from api call
 function getBookInfo() {
+  var whichBook;
   var url3;
   // check if data exists at startup for book found in local storage
   if (startup) {
@@ -485,7 +486,7 @@ function getBookInfo() {
     startup = false;
   } else {
     // book info didn't exist in local storage need to grab the currently selected book to use in api call
-    var whichBook = $(this).attr("isbn");
+    whichBook = $(this).attr("isbn");
     searchInfo.bookisbn = $(this).attr("isbn");
     // save the selected book info to local storage
     saveSearchInfo();
@@ -527,7 +528,7 @@ function getBookInfo() {
         displayMovieInfo();
 
         // build query URL to retrieve author event info based upon book ISBN
-        url4 = buildEventQueryURL(searchInfo.authorID, response.data.titles[0].isbn);
+        var url4 = buildEventQueryURL(searchInfo.authorID, response.data.titles[0].isbn);
         console.log("url4 = " + url4);
         /* api call to retrieve author events to populate dropdown list */
         $.ajax({
