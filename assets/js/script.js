@@ -402,8 +402,6 @@ var whichEvent;
     // startupEvent true means data existed in local storage for event
     whichEvent = searchInfo.authorEventId;
     startupEvent = false;
-    console.log("eventId:  " + searchInfo.authorEventId);
-    console.log("whichEvent:  " + whichEvent);
   } else {
     // startupEvent false means data did NOT exist in local storage for event
     //  therefore need to retrieve new event ID based upon user selection to use in api call
@@ -417,7 +415,6 @@ var whichEvent;
     var url;
     // build query URL for event api call if event was selected
     url = buildPickedEventQueryURL(whichEvent);
-    console.log(url);
     /* call to retrieve single author event based upon eventId selected*/
     $.ajax({
       type: "GET",
@@ -529,7 +526,6 @@ function getBookInfo() {
 
         // build query URL to retrieve author event info based upon book ISBN
         var url4 = buildEventQueryURL(searchInfo.authorID, response.data.titles[0].isbn);
-        console.log("url4 = " + url4);
         /* api call to retrieve author events to populate dropdown list */
         $.ajax({
           type: "GET",
@@ -553,7 +549,6 @@ function getBookInfo() {
           },
           // error if there are no author events
           error: function () {
-            console.log("inside event error");
             $("#eventCard").addClass("hidden");
             $("#eventNotFound").removeClass("hidden");
             $("#alternateEventText").text("No author event found that matched the book selected.");
