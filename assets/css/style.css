@@ -9,14 +9,15 @@
 }
 
 /* round corners on dropdown buttons and provide a bit of margin at bottom */
-.dropdown-trigger, .dropdown-trigger2 {
+.dropdown-trigger,
+.dropdown-trigger2 {
   cursor: pointer;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
 /* remove margin from top of h6 */
-h6 { 
+h6 {
   margin: 0px 10px 10px 10px;
 }
 
@@ -58,12 +59,14 @@ p {
 
 /* round the corners of drop down content, add scroll bar and adjust content to be below the button */
 .dropdown-content {
-	border-radius: 20px;
+  border-radius: 20px;
   margin: 0;
   display: none;
-  min-width: 200px; /* Changed this to accomodate content width */
+  min-width: 200px;
+  /* Changed this to accomodate content width */
   max-height: auto;
-	margin-left: -1px; /* Add this to keep dropdown in line with edge of navbar */
+  margin-left: -1px;
+  /* Add this to keep dropdown in line with edge of navbar */
   opacity: 0;
   position: absolute;
   white-space: nowrap;
@@ -156,7 +159,7 @@ input[type=tel]:not(.browser-default),
 input[type=number]:not(.browser-default),
 input[type=search]:not(.browser-default),
 textarea.materialize-textarea {
-background-color: #DCCEC3;
+  background-color: #DCCEC3;
   border: none;
   border-bottom: 1px solid #9e9e9e;
   border-radius: 7px;
@@ -267,7 +270,7 @@ textarea.materialize-textarea[readonly="readonly"]+label {
   border-radius: 20px;
   border-color: #DCCEC3;
   border-style: double;
-  background-color:rgb(78, 24, 29);
+  background-color: rgb(78, 24, 29);
   opacity: 100%;
 }
 
@@ -288,21 +291,27 @@ i.left {
 }
 
 @media only screen and (min-width: 994px) {
-  .bookBtn, .eventBtn {
+
+  .bookBtn,
+  .eventBtn {
     font-size: 0.5vw;
     padding: 0 2px;
   }
 }
 
 @media only screen and (min-width: 1200) {
-.bookBtn, .eventBtn {
-  font-size: 0.75vw;
-  padding: 0 5px;
-}
+
+  .bookBtn,
+  .eventBtn {
+    font-size: 0.75vw;
+    padding: 0 5px;
+  }
 }
 
 @media only screen and (min-width: 1390px) {
-  .bookBtn, .eventBtn {
+
+  .bookBtn,
+  .eventBtn {
     font-size: 14px;
     padding: 0 5px;
   }
