@@ -17,6 +17,81 @@ var startupEvent = false;
 /* grab current day using day js to use to limit author events returned */
 var currentDate = dayjs().format("M/DD/YYYY");
 
+// event listener for Author Search button
+$("#searchBtn").on("click", function () {
+  /* save user entered info to searchInfo object */
+  searchInfo.author.firstName = $("#firstName").val().trim();
+  searchInfo.author.lastName = $("#lastName").val().trim();
+  /* save user entered search criteria to local storage */
+  saveSearchInfo();
+  //empty dropdown list contents
+  $("#dropdown1").empty();
+  $("authorEvents").empty();
+  // set this info to empty string before api data returned
+  searchInfo.bookTitle = "";
+  searchInfo.bookisbn = "";
+  searchInfo.authorID = "";
+  searchInfo.authorEventId = "";
+  // set/remove hidden class appropriately for HTML elements
+  $("#movieCard").addClass("hidden");
+  $("#movieNotFound").removeClass("hidden");
+  $("#alternateMovieText").text("No movie found that matched the book selected.");
+  $("#eventCard").addClass("hidden");
+  $("#eventNotFound").removeClass("hidden");
+  $("#alternateEventText").text("No event found that matched the book selected.");
+  // save changes back out to local storage
+  saveSearchInfo();
+  // clear all the text fields prior to retrieving api data
+  //  this is similar to what happens at initialization except this time based upon clicking the search button
+  clearBookInfo();
+  clearAuthorInfo();
+  clearMovieInfo();
+  clearEventInfo();
+  getAuthorInfo();
+
+});
+
+// function to clear all book fields
+function clearBookInfo() {
+  $("#title").val("");
+  $("#saleDate").val("");
+  $("#format").val("");
+  $("#numPages").val("");
+  $("#price").val("");
+  $("#isbn").val("");
+  $("#bookCover").removeAttr("src");
+}
+
+// function to clear all author fields
+function clearAuthorInfo() {
+  $("#authorSpotlight").text("");
+  $("#authorSpotlight").removeAttr("src");
+}
+
+// function to clear all movie fields
+function clearMovieInfo() {
+  $("#movieTitle").val("");
+  $("#moviePlot").text("");
+  $("#movieRated").val("");
+  $("#movieRuntime").val("");
+  $("#movieGenre").val("");
+  $("#movieReleased").val("");
+  $("moviePoster").removeAttr("src");
+  $("#moviePoster").attr("src", "");
+}
+
+// function to clear all event fields
+function clearEventInfo() {
+  $("#eventLocation").val("");
+  $("#eventDesc").val("");
+  $("#eventDate").val("");
+  $("#eventTime").val("");
+  $("#eventAddress").val("");
+  $("#eventCity").val("");
+  $("#eventState").val("");
+  $("#eventZip").val("");
+}
+
 /* function to save author name and book title to local storage */
 function saveSearchInfo() {
 
@@ -61,6 +136,25 @@ function buildAuthorQueryURL(author) {
   return queryURL + $.param(queryParams);
 }
 
+// function to build the api call to retrieve book titles based upon author id
+function buildAuthorTitlesQueryURL(forcedauthorid) {
+  var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
+
+  queryURL = queryURL + forcedauthorid + "/titles?";
+
+  var queryParams = {
+    api_key: "tfugk99hpk2nt8sm3ve3peqy",
+  };
+  // parameters to restrict returned results to English language
+  queryParams.preferLanguage = "E";
+  queryParams.language = "E";
+  // parameter to return all data not restricting by how many rows returned
+  queryParams.rows = 0;
+  // parameter to restrict book titles only where author is primary author on book
+  queryParams.contribRoleCode = "A";
+  return queryURL + $.param(queryParams);
+}
+
 // function to build the api call to retrieve book information based upon ISBN
 function buildBookTitleQueryURL(isbn) {
   var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/titles/";
@@ -96,160 +190,6 @@ function buildEventQueryURL(authorid, authoreventisbn) {
   return queryURL + $.param(queryParams);
 }
 
-// function to build the api call to get the book cover art if any
-function retrieveCoverArt(isbn) {
-  // the -M indicates the size of the jpg file to return, in this case we are getting medium size image
-  var srcCoverArt = "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
-
-  return srcCoverArt;
-}
-
-// function to display movie info based upon selected ISBN
-function displayMovieInfo() {
-  var url;
-  // check if book title exists
-  if (!(searchInfo.bookTitle === "")) {
-    /* build url for movie api call utilizing the book title chosen */
-    url = buildMovieQueryURL(searchInfo.bookTitle);
-    /* make ajax call to retrieve movie object */
-    $.ajax({
-      type: "GET",
-      url: url,
-      success: function (response) {
-        // check if movie found based upon JSON response
-        if (response.Error === "Movie not found!") {
-          $("#movieCard").addClass("hidden");
-          $("#movieNotFound").removeClass("hidden");
-          $("#alternateMovieText").text("No movie found that matched the book selected.");
-        } else {
-          $("#movieNotFound").addClass("hidden");
-          $("#movieCard").removeClass("hidden");
-          clearMovieInfo();
-          // assign JSON response data to individual fields in HTML
-          $("#movieTitle").val(response.Title);
-          $("#moviePlot").text(response.Plot);
-          $("#movieRated").val(response.Rated);
-          $("#movieRuntime").val(response.Runtime);
-          $("#movieGenre").val(response.Genre);
-          $("#movieReleased").val(response.Released);
-          // this is needed to make input field labels relocate outside the field when data filled in
-          M.updateTextFields();
-          // check if movie poster available
-          if (response.Poster === "N/A") {
-            // when no movie poster available hide field and show not available text
-            $("#moviePoster").addClass("hidden");
-            $("#notAvailableText").removeClass("hidden");
-            $("#notAvailableText").text("No movie poster available");
-          } else {
-            // show the movie poster field
-            $("#notAvailableText").addClass("hidden");
-            $("#moviePoster").removeClass("hidden");
-
-          }
-          $("#moviePoster").attr("src", response.Poster);
-        }
-      }
-    });
-    // no book title provided so no api call can be made
-  } else {
-    $("#movieCard").addClass("hidden");
-    $("#movieNotFound").removeClass("hidden");
-    $("#alternateMovieText").text("No movie found that matched the book selected.");
-  }
-}
-
-// function that retrieves local storage information, clears all information fields and 
-// calls each individual function to retrieve api information
-function init() {
-  // Get stored events from localStorage
-  // Parsing the JSON string to an object
-  var savedInfo = JSON.parse(localStorage.getItem("SearchInfo"));
-
-  // set these variables to true for when app initially runs vs event listener
-  startup = true;
-  startupEvent = true;
-  // If events were not retrieved from localStorage, update local storage to searchInfo object
-  if (savedInfo === null) {
-    localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
-    // calls to display the no info found panels
-    getAuthorInfo();
-    getBookInfo();
-    getEventInfo();
-  }
-  else {
-    // save the retrieved local storage data
-    searchInfo = savedInfo;
-    // calls to clear all the field info
-    clearAuthorInfo();
-    clearBookInfo();
-    clearEventInfo();
-    clearMovieInfo();
-    // calls to retrieve all the info based upon data saved in local storage
-    getAuthorInfo();
-    getBookInfo();
-    getEventInfo();
-  }
-}
-
-init();
-
-// materialize triggers for the drop downs in HTML
-$(".dropdown-trigger").dropdown();
-$(".dropdown-trigger2").dropdown();
-
-// event listener for Author Search button
-$("#searchBtn").on("click", function () {
-  /* save user entered info to searchInfo object */
-  searchInfo.author.firstName = $("#firstName").val().trim();
-  searchInfo.author.lastName = $("#lastName").val().trim();
-  /* save user entered search criteria to local storage */
-  saveSearchInfo();
-  //empty dropdown list contents
-  $("#dropdown1").empty();
-  $("authorEvents").empty();
-  // set this info to empty string before api data returned
-  searchInfo.bookTitle = "";
-  searchInfo.bookisbn = "";
-  searchInfo.authorID = "";
-  searchInfo.authorEventId = "";
-  // set/remove hidden class appropriately for HTML elements
-  $("#movieCard").addClass("hidden");
-  $("#movieNotFound").removeClass("hidden");
-  $("#alternateMovieText").text("No movie found that matched the book selected.");
-  $("#eventCard").addClass("hidden");
-  $("#eventNotFound").removeClass("hidden");
-  $("#alternateEventText").text("No event found that matched the book selected.");
-  // save changes back out to local storage
-  saveSearchInfo();
-  // clear all the text fields prior to retrieving api data
-  //  this is similar to what happens at initialization except this time based upon clicking the search button
-  clearBookInfo();
-  clearAuthorInfo();
-  clearMovieInfo();
-  clearEventInfo();
-  getAuthorInfo();
-
-});
-
-// function to build the api call to retrieve book titles based upon author id
-function buildAuthorTitlesQueryURL(forcedauthorid) {
-  var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/authors/";
-
-  queryURL = queryURL + forcedauthorid + "/titles?";
-
-  var queryParams = {
-    api_key: "tfugk99hpk2nt8sm3ve3peqy",
-  };
-  // parameters to restrict returned results to English language
-  queryParams.preferLanguage = "E";
-  queryParams.language = "E";
-  // parameter to return all data not restricting by how many rows returned
-  queryParams.rows = 0;
-  // parameter to restrict book titles only where author is primary author on book
-  queryParams.contribRoleCode = "A";
-  return queryURL + $.param(queryParams);
-}
-
 // function to build api call to return a specific author event information
 function buildPickedEventQueryURL(whichEvent) {
   var queryURL = "https://api.penguinrandomhouse.com/resources/v2/title/domains/PRH.US/events/";
@@ -263,6 +203,14 @@ function buildPickedEventQueryURL(whichEvent) {
   // parameter to restrict results to English language
   queryParams.preferLanguage = "EN";
   return queryURL + $.param(queryParams);
+}
+
+// function to build the api call to get the book cover art if any
+function retrieveCoverArt(isbn) {
+  // the -M indicates the size of the jpg file to return, in this case we are getting medium size image
+  var srcCoverArt = "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
+
+  return srcCoverArt;
 }
 
 // function to retrieve author information from api based upon author first/last name
@@ -289,15 +237,14 @@ function getAuthorInfo() {
           $("#authorBio").html(response.data.results[0].authorBio);
         }
         // set author photo url
-               if (response.data.results[0].authorPhotoUrl === null) {
-                    $("#authorPhoto").addClass("hidden");
-                    $("#noPhoto").removeClass("hidden");
-                }
-                else {
-                    $("#noPhoto").addClass("hidden");
-                    $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
-                    $("authorPhotoUrl").removeClass("hidden");
-                }
+        if (response.data.results[0].authorPhotoUrl === null) {
+          $("#authorPhoto").addClass("hidden");
+          $("#noPhoto").removeClass("hidden");
+        } else {
+          $("#noPhoto").addClass("hidden");
+          $("#authorPhoto").attr("src", response.data.results[0].authorPhotoUrl);
+          $("authorPhotoUrl").removeClass("hidden");
+        }
         searchInfo.authorID = response.data.results[0].authorId;
         var url2;
         // build query url to retrieve book titles based upon author ID
@@ -330,7 +277,7 @@ function getAuthorInfo() {
             $("#alternateBookText").text("No book found that matched the author selected.");
             $("#authorCard").addClass("hidden");
             $("#authorNotFound").removeClass("hidden");
-            $("#alternateAuthorText").text("No author info found that matched the author searched.");            
+            $("#alternateAuthorText").text("No author info found that matched the author searched.");
           }
         });
       } else {
@@ -348,46 +295,9 @@ function getAuthorInfo() {
   });
 }
 
-// function to clear all book fields
-function clearBookInfo() {
-  $("#title").val("");
-  $("#saleDate").val("");
-  $("#format").val("");
-  $("#numPages").val("");
-  $("#price").val("");
-  $("#isbn").val("");
-  $("#bookCover").removeAttr("src");
-}
-
-// function to clear all author fields
-function clearAuthorInfo() {
-  $("#authorSpotlight").text("");
-  $("#authorSpotlight").removeAttr("src");
-}
-
-// function to clear all movie fields
-function clearMovieInfo() {
-  $("#movieTitle").val("");
-  $("#moviePlot").text("");
-  $("#movieRated").val("");
-  $("#movieRuntime").val("");
-  $("#movieGenre").val("");
-  $("#movieReleased").val("");
-  $("moviePoster").removeAttr("src");
-  $("#moviePoster").attr("src", "");
-}
-
-// function to clear all event fields
-function clearEventInfo() {
-  $("#eventLocation").val("");
-  $("#eventDesc").val("");
-  $("#eventDate").val("");
-  $("#eventTime").val("");
-  $("#eventAddress").val("");
-  $("#eventCity").val("");
-  $("#eventState").val("");
-  $("#eventZip").val("");
-}
+// materialize triggers for the drop downs in HTML
+$(".dropdown-trigger").dropdown();
+$(".dropdown-trigger2").dropdown();
 
 /* listener event for book dropdown list */
 $(document).on("click", ".book-list-item", getBookInfo);
@@ -396,7 +306,7 @@ $(document).on("click", ".event-list-item", getEventInfo);
 
 /* populate author event info based upon which event user selected */
 function getEventInfo() {
-var whichEvent;
+  var whichEvent;
   // check if startupEvent is true
   if (startupEvent) {
     // startupEvent true means data existed in local storage for event
@@ -456,8 +366,7 @@ var whichEvent;
         // check if there is an event time returned otherwise display N/A
         if (!(response.data.events[0].eventTime === null)) {
           $("#eventTime").val(response.data.events[0].eventTime);
-        }
-        else {
+        } else {
           $("#eventTime").val("N/A");
         }
         // the following needs to be called to shift materialize css label out of the input field
@@ -497,6 +406,7 @@ function getBookInfo() {
       url: url3,
       success: function (response) {
         // set/remove hidden class on correct HTML elements for book fields
+        $("#authorEvents").empty();
         $("#bookNotFound").addClass("hidden");
         $("#bookCard").removeClass("hidden");
         searchInfo.bookTitle = response.data.titles[0].title;
@@ -571,3 +481,91 @@ function getBookInfo() {
     displayMovieInfo();
   }
 }
+
+// function to display movie info based upon selected ISBN
+function displayMovieInfo() {
+  var url;
+  // check if book title exists
+  if (!(searchInfo.bookTitle === "")) {
+    /* build url for movie api call utilizing the book title chosen */
+    url = buildMovieQueryURL(searchInfo.bookTitle);
+    /* make ajax call to retrieve movie object */
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function (response) {
+        // check if movie found based upon JSON response
+        if (response.Error === "Movie not found!") {
+          $("#movieCard").addClass("hidden");
+          $("#movieNotFound").removeClass("hidden");
+          $("#alternateMovieText").text("No movie found that matched the book selected.");
+        } else {
+          $("#movieNotFound").addClass("hidden");
+          $("#movieCard").removeClass("hidden");
+          clearMovieInfo();
+          // assign JSON response data to individual fields in HTML
+          $("#movieTitle").val(response.Title);
+          $("#moviePlot").text(response.Plot);
+          $("#movieRated").val(response.Rated);
+          $("#movieRuntime").val(response.Runtime);
+          $("#movieGenre").val(response.Genre);
+          $("#movieReleased").val(response.Released);
+          // this is needed to make input field labels relocate outside the field when data filled in
+          M.updateTextFields();
+          // check if movie poster available
+          if (response.Poster === "N/A") {
+            // when no movie poster available hide field and show not available text
+            $("#moviePoster").addClass("hidden");
+            $("#notAvailableText").removeClass("hidden");
+            $("#notAvailableText").text("No movie poster available");
+          } else {
+            // show the movie poster field
+            $("#notAvailableText").addClass("hidden");
+            $("#moviePoster").removeClass("hidden");
+
+          }
+          $("#moviePoster").attr("src", response.Poster);
+        }
+      }
+    });
+    // no book title provided so no api call can be made
+  } else {
+    $("#movieCard").addClass("hidden");
+    $("#movieNotFound").removeClass("hidden");
+    $("#alternateMovieText").text("No movie found that matched the book selected.");
+  }
+}
+
+// function that retrieves local storage information, clears all information fields and 
+// calls each individual function to retrieve api information
+function init() {
+  // Get stored events from localStorage
+  // Parsing the JSON string to an object
+  var savedInfo = JSON.parse(localStorage.getItem("SearchInfo"));
+
+  // set these variables to true for when app initially runs vs event listener
+  startup = true;
+  startupEvent = true;
+  // If events were not retrieved from localStorage, update local storage to searchInfo object
+  if (savedInfo === null) {
+    localStorage.setItem("SearchInfo", JSON.stringify(searchInfo));
+    // calls to display the no info found panels
+    getAuthorInfo();
+    getBookInfo();
+    getEventInfo();
+  } else {
+    // save the retrieved local storage data
+    searchInfo = savedInfo;
+    // calls to clear all the field info
+    clearAuthorInfo();
+    clearBookInfo();
+    clearEventInfo();
+    clearMovieInfo();
+    // calls to retrieve all the info based upon data saved in local storage
+    getAuthorInfo();
+    getBookInfo();
+    getEventInfo();
+  }
+}
+
+init();
