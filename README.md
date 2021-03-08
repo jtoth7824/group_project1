@@ -1,3 +1,5 @@
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://www.mit.edu/~amini/LICENSE.md)
+
 # Book/Cinema Library
 
 ### Group Name: The Librarians
